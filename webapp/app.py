@@ -5,6 +5,8 @@ from werkzeug.security import generate_password_hash
 
 DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "safety.db")
 
+IS_PRODUCTION = os.environ.get("RAILWAY_ENVIRONMENT") is not None
+
 
 def get_db():
     conn = sqlite3.connect(DB_PATH)
@@ -122,31 +124,25 @@ def init_db():
     """)
     conn.commit()
 
-    cur = conn.execute("SELECT COUNT(*) FROM users")
-    if cur.fetchone()[0] == 0:
-        conn.execute(
-            "INSERT INTO users (email, password_hash, name) VALUES (?, ?, ?)",
-            ("demo@safenet.local", generate_password_hash("demo123"), "Demo Parent"),
-        )
-        conn.execute(
-            "INSERT INTO users (email, password_hash, name, is_admin) VALUES (?, ?, ?, 1)",
-            ("admin@safenet.local", generate_password_hash("admin123"), "Admin"),
-        )
-        conn.commit()
+    if not IS_PRODUCTION:
+        cur = conn.execute("SELECT COUNT(*) FROM users")
+        if cur.fetchone()[0] == 0:
+            conn.execute(
+                "INSERT INTO users (email, password_hash, name) VALUES (?, ?, ?)",
+                ("demo@safenet.local", generate_password_hash("demo123"), "Demo Parent"),
+            )
+            conn.execute(
+                "INSERT INTO users (email, password_hash, name, is_admin) VALUES (?, ?, ?, 1)",
+                ("admin@safenet.local", generate_password_hash("admin123"), "Admin"),
+            )
+            conn.commit()
 
     conn.close()
 
 
 def create_app():
     app = Flask(__name__)
-    secret_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".secret_key")
-    if os.path.exists(secret_file):
-        with open(secret_file) as f:
-            app.secret_key = f.read().strip()
-    else:
-        app.secret_key = os.urandom(32).hex()
-        with open(secret_file, "w") as f:
-            f.write(app.secret_key)
+    app.secret_key = os.environ.get("SECRET_KEY") or os.urandom(32).hex()
     app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 3600
     init_db()
     from webapp.routes import main_bp

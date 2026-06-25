@@ -2,6 +2,8 @@ import sys, os, threading, socket, webbrowser, atexit
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, BASE_DIR)
 
+IS_PRODUCTION = os.environ.get("RAILWAY_ENVIRONMENT") is not None
+
 LOCK_FILE = os.path.join(BASE_DIR, ".safenet.lock")
 SERVER_PID = os.getpid()
 
@@ -61,8 +63,8 @@ if __name__ == "__main__":
     print("=" * 54)
     print(f"   >>>  {url}  <<<")
     print(f"   >>>  http://{local_ip}:{port}  <<<")
-    print("=" * 54)
-    print("   Admin login: admin@safenet.local / admin123")
+    if not IS_PRODUCTION:
+        print("   Admin login: admin@safenet.local / admin123")
     print("   Close this window to stop the server.")
     print("=" * 54)
     print()
