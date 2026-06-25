@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pyo
+.env
+.secret_key
+*.db
+*.exe
+*.spec
+dist/
+build/
+*.egg-info/
+.safenet.lock
