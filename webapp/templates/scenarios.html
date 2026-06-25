@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Practice Scenarios{% endblock %}
+{% block content %}
+<div class="page-head">
+    <h1>🎮 Practice Real Situations</h1>
+    <p class="page-sub">You'll see a situation and choose what to do. Your choices change the outcome — a safe way to practice before it happens for real.</p>
+</div>
+
+<div class="scenario-list">
+    {% for s in scenarios %}
+    <a href="{{ url_for('main.scenario', sid=s.id) }}" class="scenario-card">
+        <span class="scenario-tag">Scenario {{ s.id }}</span>
+        <h3>{{ s.title }}</h3>
+        <p>{{ s.description }}</p>
+        <span class="scenario-meta">🎯 {{ s.steps|selectattr('final')|list|length }} possible endings</span>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

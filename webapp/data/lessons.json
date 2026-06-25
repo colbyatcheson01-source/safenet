@@ -1,0 +1,164 @@
+{
+  "lessons": [
+    {
+      "id": 1,
+      "title": "Recognizing Online Grooming",
+      "summary": "Learn the warning signs of online grooming and how predators build trust with children.",
+      "sections": [
+        {"heading": "What is Grooming?", "body": "Grooming is when someone builds a relationship, trust, and emotional connection with a child so they can manipulate, exploit, or abuse them. It happens gradually and can be hard to recognize."},
+        {"heading": "Common Warning Signs", "body": "Excessive attention or gift-giving. Asking the child to keep secrets. Isolating the child from friends and family. Discussing sexual topics. Asking for private photos. Trying to meet in person."},
+        {"heading": "What Parents Should Watch For", "body": "Sudden secrecy about online activity. New apps or accounts they won't explain. Receiving gifts from strangers. Becoming withdrawn or defensive about online friends. Older 'friends' who don't know their peers."},
+        {"heading": "How to Respond", "body": "Stay calm. Keep communication open. Document everything. Do not confront the suspected person yourself. Report to NCMEC at report.cybertrip.org and local law enforcement."}
+      ],
+      "quiz": [
+        {"id": 1, "question": "Which of these is a common grooming warning sign?", "options": ["Asking the child to keep secrets", "Sharing homework tips", "Liking the same music", "Playing the same game"], "answer": "Asking the child to keep secrets"},
+        {"id": 2, "question": "What should you do if you suspect grooming?", "options": ["Confront the person yourself", "Document and report to NCMEC", "Delete all evidence", "Wait to see if it stops"], "answer": "Document and report to NCMEC"},
+        {"id": 3, "question": "Grooming typically happens:", "options": ["All at once", "Gradually over time", "Only in person", "Only on social media"], "answer": "Gradually over time"}
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Privacy Settings & Digital Boundaries",
+      "summary": "How to lock down accounts, set boundaries, and protect personal information.",
+      "sections": [
+        {"heading": "Why Privacy Settings Matter", "body": "Predators use public information to learn about children. A public profile can reveal a child's location, school, friends, routines, and personal interests."},
+        {"heading": "Essential Settings to Check", "body": "Set profiles to private. Disable location sharing. Turn off geotagging on photos. Limit who can message or friend your child. Review tagged photos before they go live."},
+        {"heading": "Platform-Specific Tips", "body": "On Instagram: Private account + close friends for stories. On TikTok: Private account + disable comments on videos. On Discord: Restrict direct messages to friends only. On Snapchat: Disable quick add and location sharing."},
+        {"heading": "Digital Boundaries at Home", "body": "Use device screen time limits. Keep devices in common areas. Set rules about sharing passwords. Discuss what information is never okay to share: full name, address, school name, phone number."}
+      ],
+      "quiz": [
+        {"id": 1, "question": "What is the most basic privacy setting every child should have?", "options": ["Public profile to find friends", "Private profile", "No profile picture", "Max followers"], "answer": "Private profile"},
+        {"id": 2, "question": "Which information should never be shared publicly?", "options": ["Favorite movie", "School name and address", "Favorite color", "Pet's name"], "answer": "School name and address"},
+        {"id": 3, "question": "Geotagging on photos:", "options": ["Is always safe to leave on", "Should be reviewed and often disabled for children", "Only matters on Facebook", "Cannot be turned off"], "answer": "Should be reviewed and often disabled for children"}
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Safe Online Communication",
+      "summary": "Guidelines for messaging, video chats, and online friendships.",
+      "sections": [
+        {"heading": "Stranger Danger Online", "body": "People online are not always who they say they are. A profile saying '15-year-old boy' could be anyone. Teach children to never assume a stranger's identity is real."},
+        {"heading": "Rules for Messaging", "body": "Never share personal information. Never send private photos. Never agree to video chat with someone you haven't met in person. Tell a trusted adult if anyone makes you uncomfortable."},
+        {"heading": "Recognizing Fake Profiles", "body": "Few friends or followers. Recently created account. Stock photos instead of real photos. Inconsistent details. Refuses to video call. Always has an excuse not to meet in person."},
+        {"heading": "What to Do When Something Feels Wrong", "body": "Stop communicating. Save screenshots. Block the person. Tell a trusted adult. Report the profile to the platform and to NCMEC."}
+      ],
+      "quiz": [
+        {"id": 1, "question": "What should a child do if an online stranger makes them uncomfortable?", "options": ["Keep chatting to be polite", "Stop, screenshot, block, tell an adult", "Ask the stranger to stop", "Delete their account"], "answer": "Stop, screenshot, block, tell an adult"},
+        {"id": 2, "question": "Fake profiles often have:", "options": ["Many friends from school", "Recent account + stock photos", "Real phone numbers", "Video chat history"], "answer": "Recent account + stock photos"},
+        {"id": 3, "question": "It is safe to video chat with an online friend you have:", "options": ["Known for 2 years but never met", "Never met in real life", "Only met in a monitored setting with parent present", "Only messaged with"], "answer": "Only met in a monitored setting with parent present"}
+      ]
+    },
+    {
+      "id": 4,
+      "title": "How to Report Suspicious Activity",
+      "summary": "Step-by-step guide to reporting online exploitation to the proper authorities.",
+      "sections": [
+        {"heading": "Why Reporting Matters", "body": "Every report helps connect cases, identify patterns, and build evidence against offenders. You may be the only one who noticed."},
+        {"heading": "What to Report", "body": "Unsolicited sexual messages. Requests for private photos. Anyone asking a child to keep secrets. Profiles that seem to be impersonating a child. Known CSAM (child sexual abuse material)."},
+        {"heading": "How to Document Evidence", "body": "Take screenshots with timestamps. Save URLs and usernames. Record dates and times. Do NOT share or distribute the material. Send your documentation directly to law enforcement."},
+        {"heading": "Reporting Channels", "body": "NCMEC CyberTipline: report.cybertrip.org. FBI Internet Crime Complaint Center (IC3): ic3.gov. Local police non-emergency line. Platform reporting tools (each platform has a report feature)."}
+      ],
+      "quiz": [
+        {"id": 1, "question": "What is the primary reporting channel for online child exploitation?", "options": ["Local TV station", "NCMEC CyberTipline", "School principal", "Social media comment"], "answer": "NCMEC CyberTipline"},
+        {"id": 2, "question": "When documenting evidence, you should:", "options": ["Share it online to warn others", "Take screenshots with timestamps and URLs", "Delete it immediately", "Print all evidence"], "answer": "Take screenshots with timestamps and URLs"},
+        {"id": 3, "question": "If you find CSAM online, you should:", "options": ["Download and save it for proof", "Report to NCMEC — do not share or distribute", "Post about it on social media", "Contact the person who posted it"], "answer": "Report to NCMEC — do not share or distribute"}
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Password Security & Account Safety",
+      "summary": "How to create strong passwords and keep accounts secure from compromise.",
+      "sections": [
+        {"heading": "Why Account Security Matters", "body": "Compromised accounts can be used to impersonate your child, access private conversations, and gather personal information. Strong passwords are the first line of defense."},
+        {"heading": "Creating Strong Passwords", "body": "Use at least 12 characters. Mix upper and lowercase letters, numbers, and symbols. Never use personal info (birthdays, names). Use a passphrase: 'CorrectHorseBatteryStaple' style. Use a password manager."},
+        {"heading": "Two-Factor Authentication (2FA)", "body": "Enable 2FA on every account that supports it. Use an authenticator app (Google Authenticator, Authy) rather than SMS when possible. This prevents someone from logging in even if they have the password."},
+        {"heading": "Recognizing Phishing", "body": "Don't click links in unsolicited messages. Check the sender's email address carefully. Look for misspellings and odd URLs. When in doubt, go directly to the website instead of clicking the link."}
+      ],
+      "quiz": [
+        {"id": 1, "question": "A strong password should be:", "options": ["Your pet's name", "At least 12 characters with mixed symbols", "Your birthday", "The word 'password' with numbers"], "answer": "At least 12 characters with mixed symbols"},
+        {"id": 2, "question": "Two-factor authentication:", "options": ["Is optional and not important", "Should be enabled on every account that supports it", "Only works on banks", "Makes accounts harder to use"], "answer": "Should be enabled on every account that supports it"},
+        {"id": 3, "question": "If you get a suspicious link from a friend's account:", "options": ["Click it — it's from a friend", "Don't click — their account may be compromised", "Reply asking if it's real", "Forward it to other friends"], "answer": "Don't click — their account may be compromised"}
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Social Media Platform Safety",
+      "summary": "Deep dive into safety features across major social platforms.",
+      "sections": [
+        {"heading": "Instagram", "body": "Private accounts, close friends lists, comment filters, blocked accounts, and restricted mode. Review tagged photos manually. Disable message requests from strangers."},
+        {"heading": "TikTok", "body": "Private account, disable duet/stitch for minors, restricted mode, screen time limits, comment filtering. Family Pairing lets parents link their account to their teen's."},
+        {"heading": "Snapchat", "body": "Disable quick add. Enable ghost mode on Snap Map. Restrict story visibility to friends only. Disable 'see me in quick add'. Review friend list regularly."},
+        {"heading": "Discord", "body": "Set direct messages to friends only. Disable server DMs. Enable explicit content filter. Review joined servers regularly. Set up family-friendly servers."}
+      ],
+      "quiz": [
+        {"id": 1, "question": "Which TikTok feature lets parents link their account to their teen's?", "options": ["Family Pairing", "Parent Mode", "Guardian Link", "Safe Connect"], "answer": "Family Pairing"},
+        {"id": 2, "question": "On Snapchat, what should you do to protect location privacy?", "options": ["Enable ghost mode on Snap Map", "Share location with all friends", "Post location to stories", "No location controls exist"], "answer": "Enable ghost mode on Snap Map"},
+        {"id": 3, "question": "On Discord, who should be able to DM your child?", "options": ["Anyone on any server", "Only friends", "All server admins", "Nobody"], "answer": "Only friends"}
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Cyberbullying Recognition & Response",
+      "summary": "Identify cyberbullying and take effective action to protect your child.",
+      "sections": [
+        {"heading": "What is Cyberbullying?", "body": "Cyberbullying is bullying that happens through digital devices. It includes mean texts, rumors spread online, embarrassing photos or videos, fake profiles, and exclusion from group chats."},
+        {"heading": "Warning Signs", "body": "Sudden withdrawal from devices. Visible distress after using phone/computer. Hiding screens when parents approach. Declining grades. Changes in sleep or eating. Avoiding school or social events."},
+        {"heading": "How to Respond", "body": "Don't respond to the bully. Save all evidence (screenshots, dates, URLs). Block the bully. Report to the platform. Inform the school if involved. Support your child emotionally."},
+        {"heading": "Prevention Strategies", "body": "Teach your child to never share passwords. Encourage them to come to you if anything happens. Role-play scenarios. Set clear expectations about kind online behavior."}
+      ],
+      "quiz": [
+        {"id": 1, "question": "Which is NOT a sign of cyberbullying?", "options": ["Hiding screens from parents", "More excited about using devices", "Sudden withdrawal from friends", "Declining grades"], "answer": "More excited about using devices"},
+        {"id": 2, "question": "The first step when your child experiences cyberbullying is:", "options": ["Delete all their accounts", "Save evidence and don't respond to the bully", "Post about it on social media", "Contact the bully's parents directly"], "answer": "Save evidence and don't respond to the bully"},
+        {"id": 3, "question": "Cyberbullying includes:", "options": ["Only physical threats", "Mean texts, rumors, embarrassing photos, and exclusion", "Only posts on social media", "Only comments on videos"], "answer": "Mean texts, rumors, embarrassing photos, and exclusion"}
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Digital Footprint Management",
+      "summary": "Understand and control your child's long-term online presence.",
+      "sections": [
+        {"heading": "What is a Digital Footprint?", "body": "Everything posted online creates a permanent record. Comments, photos, likes, shares, and even search history contribute to a digital footprint that colleges, employers, and others can find."},
+        {"heading": "Why It Matters for Children", "body": "Content posted today can resurface years later. Embarrassing photos, inappropriate comments, or oversharing can affect college admissions, job offers, and personal relationships."},
+        {"heading": "How to Manage It", "body": "Google your child's name regularly. Set up Google Alerts. Review and remove old content. Set strict privacy on all accounts. Teach that the internet never forgets."},
+        {"heading": "The Pause Principle", "body": "Before posting anything, pause and ask: Would I want a grandparent, teacher, or future employer to see this? If not, don't post it. A moment of pause prevents years of regret."}
+      ],
+      "quiz": [
+        {"id": 1, "question": "What is a digital footprint?", "body": "The permanent record of everything posted online", "options": ["A virus tracker", "The permanent record of everything posted online", "A privacy setting", "A type of password"], "answer": "The permanent record of everything posted online"},
+        {"id": 2, "question": "Who might look at a digital footprint?", "options": ["Only friends", "Colleges, employers, and anyone with internet access", "Only the police", "Nobody"], "answer": "Colleges, employers, and anyone with internet access"},
+        {"id": 3, "question": "The 'Pause Principle' means:", "options": ["Taking a break from social media", "Pausing before posting to consider future consequences", "Pausing videos while watching", "Waiting to reply to messages"], "answer": "Pausing before posting to consider future consequences"}
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Mobile App Safety",
+      "summary": "Evaluate apps for safety and set up parental controls on mobile devices.",
+      "sections": [
+        {"heading": "App Risks", "body": "Not all apps are what they seem. Some collect excessive data. Some have hidden adult content. Some facilitate anonymous communication with strangers. Some have weak privacy controls."},
+        {"heading": "How to Evaluate an App", "body": "Read privacy policies. Check age ratings and reviews. Test it yourself before allowing your child. Look at what data it collects and who it shares with. Check if it has reporting features."},
+        {"heading": "Parental Controls by Platform", "body": "iOS: Screen Time with content restrictions, app limits, communication limits. Android: Family Link for app approval, screen time, content filtering. Third-party: Qustodio, Bark, Norton Family."},
+        {"heading": "Dangerous App Categories", "body": "Anonymous messaging apps. Apps that hide content (vault apps). Apps with no age verification. Apps with unmoderated chat rooms. Apps that encourage secret communication."}
+      ],
+      "quiz": [
+        {"id": 1, "question": "Before letting your child use a new app, you should:", "options": ["Just trust the rating", "Test it yourself and check privacy settings", "Let them figure it out", "Only check the number of downloads"], "answer": "Test it yourself and check privacy settings"},
+        {"id": 2, "question": "Vault apps are dangerous because:", "options": ["They store passwords", "They can hide content and secret communications", "They cost money", "They use too much battery"], "answer": "They can hide content and secret communications"},
+        {"id": 3, "question": "Which app category is highest risk?", "options": ["Educational games", "Anonymous messaging apps", "Photo editing tools", "Weather apps"], "answer": "Anonymous messaging apps"}
+      ]
+    },
+    {
+      "id": 10,
+      "title": "When & How to Talk to Children",
+      "summary": "Age-appropriate conversations about online safety that build trust.",
+      "sections": [
+        {"heading": "Start Early (Ages 4-7)", "body": "Use simple concepts. 'The internet is like a big city — there are fun places and some places we don't go alone.' Teach that they can always come to you. Introduce the idea that not everyone online is who they say they are."},
+        {"heading": "Pre-Teen (Ages 8-12)", "body": "Have direct conversations about social media, privacy, and strangers online. Set clear rules and explain why they exist. Discuss what information is private. Role-play scenarios."},
+        {"heading": "Teen (Ages 13+)", "body": "Shift to guiding rather than controlling. Discuss digital reputation, consent, and critical thinking. Talk about healthy relationships online. Be honest about risks without being alarmist. Respect their privacy while maintaining oversight."},
+        {"heading": "Keeping Communication Open", "body": "Don't punish them for coming to you with problems. Have regular, casual check-ins. Use 'teachable moments' from news or media. Let them teach you about new apps. Make it safe for them to be honest."}
+      ],
+      "quiz": [
+        {"id": 1, "question": "For children ages 4-7, conversations about online safety should be:", "options": ["Detailed and technical", "Simple with analogies they understand", "Only when a problem arises", "Left to teachers"], "answer": "Simple with analogies they understand"},
+        {"id": 2, "question": "The most important factor for teens is:", "options": ["Strict surveillance", "Open communication and guidance", "No internet access", "Only educational sites"], "answer": "Open communication and guidance"},
+        {"id": 3, "question": "If your child comes to you with an online problem, you should:", "options": ["Punish them for using the app", "Thank them and help without punishing", "Take away all devices", "Tell them to handle it themselves"], "answer": "Thank them and help without punishing"}
+      ]
+    }
+  ]
+}

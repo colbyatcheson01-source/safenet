@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="page-head">
+    <h1>🏠 Family Dashboard</h1>
+    <p class="page-sub">See how your family is doing and what to do next.</p>
+</div>
+
+{% if session.user_id %}
+<div class="dash-strip" id="dashboardStats">
+    <div class="dash-chip"><span class="chip-num" id="statReports">0</span> Reports sent</div>
+    <div class="dash-chip"><span class="chip-num" id="statQuizzes">0</span> Quizzes done</div>
+    <div class="dash-chip"><span class="chip-num" id="statActivities">0</span> Activities</div>
+    <div class="dash-chip"><span class="chip-num" id="statScore">0%</span> Safety score</div>
+</div>
+{% else %}
+<div class="alert alert-info">
+    <strong>👋 Welcome!</strong> <a href="{{ url_for('main.login') }}">Sign in</a> or <a href="{{ url_for('main.register') }}">create an account</a> to save your progress. Or <a href="{{ url_for('main.demo_login') }}">try a demo</a>.
+</div>
+{% endif %}
+
+<div class="dash-grid">
+    <div class="dash-card wide">
+        <h3>✅ Safety Checklist</h3>
+        <p class="dash-hint">Check off what you've already done. Your score goes up as you complete more.</p>
+        <ul class="checklist" id="checklist">
+            <li data-key="private_accounts"><label><input type="checkbox"> <span>Set all family accounts to <strong>private</strong></span></label></li>
+            <li data-key="location_off"><label><input type="checkbox"> <span>Turned off <strong>location sharing</strong> on devices</span></label></li>
+            <li data-key="2fa_enabled"><label><input type="checkbox"> <span>Turned on <strong>two-step login</strong> (2FA) on accounts</span></label></li>
+            <li data-key="password_manager"><label><input type="checkbox"> <span>Set up a <strong>password manager</strong> for the family</span></label></li>
+            <li data-key="screen_limits"><label><input type="checkbox"> <span>Added <strong>screen time limits</strong> on devices</span></label></li>
+            <li data-key="devices_common"><label><input type="checkbox"> <span>Kids use devices in <strong>shared rooms</strong> only</span></label></li>
+            <li data-key="regular_checkins"><label><input type="checkbox"> <span>Have <strong>weekly check-ins</strong> about online life</span></label></li>
+            <li data-key="reporting_known"><label><input type="checkbox"> <span>My child knows <strong>how to report</strong> a problem</span></label></li>
+            <li data-key="safety_plan_created"><label><input type="checkbox"> <span>Made a <strong>family safety plan</strong> together</span></label></li>
+            <li data-key="apps_reviewed"><label><input type="checkbox"> <span>Checked all <strong>apps</strong> for safety settings</span></label></li>
+        </ul>
+        <button class="btn btn-primary" id="save-checklist">✅ Save My Progress</button>
+    </div>
+
+    <div class="dash-card center">
+        <h3>📊 Your Safety Score</h3>
+        <div class="score-ring" id="scoreRing">
+            <div class="score-ring-value" id="scoreValue">0%</div>
+        </div>
+        <p class="dash-score-label" id="scoreLabel">Getting started — keep going!</p>
+    </div>
+
+    <div class="dash-card">
+        <h3>💡 Tip of the Week</h3>
+        <div class="tip-box" id="weeklyTip">
+            <p>Review your child's friend list and followers each month. Ask who each person is.</p>
+        </div>
+        <button class="btn btn-outline btn-sm" id="newTip">Show another tip</button>
+    </div>
+
+    <div class="dash-card">
+        <h3>🚀 Quick Actions</h3>
+        <div class="quick-actions">
+            <a href="{{ url_for('main.report') }}" class="btn btn-secondary btn-sm">🚨 Report something</a>
+            <a href="{{ url_for('main.safety_plan') }}" class="btn btn-outline btn-sm">📝 Family safety plan</a>
+            <a href="{{ url_for('main.lessons') }}" class="btn btn-outline btn-sm">📚 Take a lesson</a>
+            <a href="{{ url_for('main.activity') }}" class="btn btn-outline btn-sm">📋 View my activity</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

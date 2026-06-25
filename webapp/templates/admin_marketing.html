@@ -1,0 +1,254 @@
+{% extends "base.html" %}
+{% block title %}Admin — Marketing{% endblock %}
+{% block content %}
+
+<style>
+.admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.admin-card { background: var(--bg-card); border-radius: var(--radius); padding: 1.5rem; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
+.admin-card h3 { font-size: 1.05rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem; }
+.admin-card textarea { width: 100%; padding: 0.7rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem; font-family: inherit; background: var(--bg-card); color: var(--text); resize: vertical; }
+.admin-card textarea:focus { outline: none; border-color: var(--primary); }
+.admin-card select, .admin-card input[type="text"], .admin-card input[type="date"] { width: 100%; padding: 0.5rem 0.7rem; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem; background: var(--bg-card); color: var(--text); }
+.admin-card .btn { margin-top: 0.5rem; }
+.stat-row { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+.stat-chip { flex: 1; min-width: 110px; background: var(--bg); border-radius: 8px; padding: 0.8rem; text-align: center; }
+.stat-num { display: block; font-size: 1.6rem; font-weight: 700; color: var(--primary); }
+.stat-label { font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.3px; }
+
+.copy-output { background: var(--bg); padding: 1rem; border-radius: 8px; margin-top: 0.5rem; font-size: 0.9rem; white-space: pre-wrap; line-height: 1.5; min-height: 60px; }
+.copy-output.empty { color: var(--text-muted); font-style: italic; }
+
+.campaign-list { display: flex; flex-direction: column; gap: 0.5rem; max-height: 300px; overflow-y: auto; }
+.camp-item { display: flex; justify-content: space-between; align-items: center; padding: 0.7rem; background: var(--bg); border-radius: 6px; font-size: 0.85rem; flex-wrap: wrap; gap: 0.5rem; }
+.camp-item .camp-name { font-weight: 600; }
+.camp-item .camp-status { font-size: 0.75rem; padding: 0.15rem 0.5rem; border-radius: 10px; text-transform: capitalize; }
+.camp-active { background: var(--success); color: var(--success-text); }
+.camp-draft { background: var(--warning); color: var(--warning-text); }
+.camp-ended { background: var(--border); color: var(--text-muted); }
+
+.analytics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin-bottom: 1rem; }
+
+.ad-gen-output { background: var(--bg); border-radius: 8px; padding: 1rem; margin-top: 0.5rem; white-space: pre-wrap; font-size: 0.9rem; line-height: 1.5; min-height: 80px; }
+.ad-gen-output.empty { color: var(--text-muted); font-style: italic; }
+
+.template-preview { background: var(--bg); border-radius: 8px; padding: 1rem; margin-top: 0.5rem; white-space: pre-wrap; font-size: 0.9rem; line-height: 1.6; min-height: 80px; }
+
+.email-gen-output { background: var(--bg); border-radius: 8px; padding: 1rem; margin-top: 0.5rem; white-space: pre-wrap; font-size: 0.9rem; line-height: 1.6; min-height: 80px; }
+.email-gen-output.empty { color: var(--text-muted); font-style: italic; }
+
+@media (max-width: 900px) {
+  .admin-grid { grid-template-columns: 1fr; }
+  .analytics-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 500px) {
+  .analytics-grid { grid-template-columns: 1fr; }
+}
+</style>
+
+<div class="page-head">
+  <h1>📢 Admin — Marketing Center</h1>
+  <p class="page-sub">Generate ads, track campaigns, and analyze reach — all in one place.</p>
+</div>
+
+<div class="admin-card" style="margin-bottom:1rem;">
+  <h3>📊 Overview</h3>
+  <div class="analytics-grid" id="analyticsStats">
+    <div class="stat-chip"><span class="stat-num" id="statViews">—</span><span class="stat-label">Page Views</span></div>
+    <div class="stat-chip"><span class="stat-num" id="statDownloads">—</span><span class="stat-label">Downloads</span></div>
+    <div class="stat-chip"><span class="stat-num" id="statDonations">—</span><span class="stat-label">Donations</span></div>
+    <div class="stat-chip"><span class="stat-num" id="statCampaigns">—</span><span class="stat-label">Campaigns</span></div>
+    <div class="stat-chip"><span class="stat-num" id="statReports">—</span><span class="stat-label">Reports Filed</span></div>
+    <div class="stat-chip"><span class="stat-num" id="statUsers">—</span><span class="stat-label">Users</span></div>
+  </div>
+</div>
+
+<div class="admin-grid">
+  <div class="admin-card">
+    <h3>📝 Ad Copy Generator</h3>
+    <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:0.8rem;">Generate ready-to-use ad text for any platform.</p>
+    <div class="form-group">
+      <select id="adPlatform">
+        <option value="facebook">Facebook / Instagram</option>
+        <option value="twitter">Twitter / X</option>
+        <option value="linkedin">LinkedIn</option>
+        <option value="email">Email Newsletter</option>
+        <option value="flyer">Flyer / Print</option>
+        <option value="google">Google Ads</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <input type="text" id="adAngle" placeholder="Angle / focus (e.g. 'privacy for parents', 'anti-bullying')">
+    </div>
+    <button class="btn btn-primary btn-sm" id="genAdBtn">Generate Ad Copy</button>
+    <div class="ad-gen-output empty" id="adOutput">Select a platform and angle, then click generate.</div>
+  </div>
+
+  <div class="admin-card">
+    <h3>✉️ Email Template Generator</h3>
+    <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:0.8rem;">Create outreach emails for schools, PTAs, and community groups.</p>
+    <div class="form-group">
+      <select id="emailType">
+        <option value="school">School / PTA Outreach</option>
+        <option value="community">Community Group</option>
+        <option value="press">Press / Media</option>
+        <option value="sponsor">Sponsorship Request</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <input type="text" id="emailRecipient" placeholder="Recipient name or group">
+    </div>
+    <button class="btn btn-primary btn-sm" id="genEmailBtn">Generate Email</button>
+    <div class="email-gen-output empty" id="emailOutput">Choose type and recipient, then click generate.</div>
+  </div>
+
+  <div class="admin-card">
+    <h3>📋 Campaign Manager</h3>
+    <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:0.8rem;">Track your outreach campaigns.</p>
+    <div class="form-group">
+      <input type="text" id="campName" placeholder="Campaign name">
+    </div>
+    <div class="form-group">
+      <select id="campPlatform">
+        <option value="social">Social Media</option>
+        <option value="email">Email</option>
+        <option value="school">School / PTA</option>
+        <option value="community">Community</option>
+        <option value="press">Press / Media</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <textarea id="campContent" rows="3" placeholder="What's this campaign about?"></textarea>
+    </div>
+    <button class="btn btn-primary btn-sm" id="createCampBtn">Create Campaign</button>
+    <div id="campResult" style="margin-top:0.5rem;font-size:0.85rem;color:var(--text-muted);"></div>
+    <div class="campaign-list" id="campaignList">
+      <div class="camp-item"><span style="color:var(--text-muted);">No campaigns yet.</span></div>
+    </div>
+  </div>
+
+  <div class="admin-card">
+    <h3>🔗 Referral Source Tracker</h3>
+    <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:0.8rem;">See where your traffic is coming from.</p>
+    <div class="campaign-list" id="sourceList">
+      <div class="camp-item"><span style="color:var(--text-muted);">No data yet.</span></div>
+    </div>
+  </div>
+
+  <div class="admin-card">
+    <h3>🗓 Social Media Post Generator</h3>
+    <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:0.8rem;">Pre-written posts you can copy and paste.</p>
+    <div class="form-group">
+      <select id="postType">
+        <option value="intro">Introduction / What is SafeNet</option>
+        <option value="tip">Safety Tip</option>
+        <option value="testimonial">Testimonial</option>
+        <option value="feature">Feature Spotlight</option>
+        <option value="callout">Call to Action</option>
+      </select>
+    </div>
+    <button class="btn btn-primary btn-sm" id="genPostBtn">Generate Post</button>
+    <div class="ad-gen-output empty" id="postOutput">Select a post type and click generate.</div>
+  </div>
+
+  <div class="admin-card">
+    <h3>🗄 Saved Templates</h3>
+    <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:0.8rem;">Previously saved ad templates for reuse.</p>
+    <div class="campaign-list" id="savedTemplatesList">
+      <div class="camp-item"><span style="color:var(--text-muted);">No saved templates.</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+function el(id) { return document.getElementById(id); }
+
+function loadAnalytics() { fetch("/api/admin/analytics").then(function(r){return r.json()}).then(function(d){
+  el("statViews").textContent = d.total_views || 0;
+  el("statDownloads").textContent = d.total_downloads || 0;
+  el("statDonations").textContent = d.total_donations || 0;
+  el("statCampaigns").textContent = d.total_campaigns || 0;
+  el("statReports").textContent = d.total_reports || 0;
+  el("statUsers").textContent = d.total_users || 0;
+}).catch(function(){}); }
+
+function loadCampaigns() { fetch("/api/admin/campaigns").then(function(r){return r.json()}).then(function(d){
+  var list = el("campaignList");
+  if (!d.length) { list.innerHTML = '<div class="camp-item"><span style="color:var(--text-muted);">No campaigns yet.</span></div>'; return; }
+  list.innerHTML = d.map(function(c){ return '<div class="camp-item"><span class="camp-name">'+c.name+'</span><span class="camp-status camp-'+c.status+'">'+c.status+'</span><span style="color:var(--text-muted);font-size:0.8rem;">'+c.platform+'</span><span style="color:var(--text-muted);font-size:0.8rem;">'+c.views+' views</span></div>'; }).join("");
+}).catch(function(){}); }
+
+function loadSources() { fetch("/api/admin/sources").then(function(r){return r.json()}).then(function(d){
+  var list = el("sourceList");
+  if (!d.length) { list.innerHTML = '<div class="camp-item"><span style="color:var(--text-muted);">No data yet.</span></div>'; return; }
+  list.innerHTML = d.map(function(s){ return '<div class="camp-item"><span class="camp-name">'+s.source+'</span><span style="font-weight:600;">'+s.count+'</span></div>'; }).join("");
+}).catch(function(){}); }
+
+function loadTemplates() { fetch("/api/admin/templates").then(function(r){return r.json()}).then(function(d){
+  var list = el("savedTemplatesList");
+  if (!d.length) { list.innerHTML = '<div class="camp-item"><span style="color:var(--text-muted);">No saved templates.</span></div>'; return; }
+  list.innerHTML = d.map(function(t){ return '<div class="camp-item"><span class="camp-name">'+t.name+'</span><span style="color:var(--text-muted);font-size:0.8rem;">'+t.platform+'</span></div>'; }).join("");
+}).catch(function(){}); }
+
+loadAnalytics(); loadCampaigns(); loadSources(); loadTemplates();
+
+el("genAdBtn").addEventListener("click", function(){
+  var platform = el("adPlatform").value;
+  var angle = el("adAngle").value || "online safety for families";
+  var out = el("adOutput");
+  out.className = "ad-gen-output"; out.textContent = "Generating...";
+  fetch("/api/admin/generate-ad", {
+    method: "POST", headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({platform: platform, angle: angle})
+  }).then(function(r){return r.json()}).then(function(d){
+    out.textContent = d.content;
+    out.classList.remove("empty");
+  }).catch(function(){ out.textContent = "Error generating ad copy."; });
+});
+
+el("genEmailBtn").addEventListener("click", function(){
+  var type = el("emailType").value;
+  var recipient = el("emailRecipient").value || "there";
+  var out = el("emailOutput");
+  out.className = "email-gen-output"; out.textContent = "Generating...";
+  fetch("/api/admin/generate-email", {
+    method: "POST", headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({type: type, recipient: recipient})
+  }).then(function(r){return r.json()}).then(function(d){
+    out.textContent = d.content;
+    out.classList.remove("empty");
+  }).catch(function(){ out.textContent = "Error generating email template."; });
+});
+
+el("createCampBtn").addEventListener("click", function(){
+  var name = el("campName").value;
+  var platform = el("campPlatform").value;
+  var content = el("campContent").value;
+  if (!name) { el("campResult").textContent = "Please enter a campaign name."; return; }
+  fetch("/api/admin/create-campaign", {
+    method: "POST", headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({name: name, platform: platform, content: content})
+  }).then(function(r){return r.json()}).then(function(d){
+    el("campResult").textContent = "✅ Campaign created!";
+    el("campName").value = ""; el("campContent").value = "";
+    loadCampaigns();
+  }).catch(function(){ el("campResult").textContent = "Error creating campaign."; });
+});
+
+el("genPostBtn").addEventListener("click", function(){
+  var type = el("postType").value;
+  var out = el("postOutput");
+  out.className = "ad-gen-output"; out.textContent = "Generating...";
+  fetch("/api/admin/generate-post", {
+    method: "POST", headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({type: type})
+  }).then(function(r){return r.json()}).then(function(d){
+    out.textContent = d.content;
+    out.classList.remove("empty");
+  }).catch(function(){ out.textContent = "Error generating post."; });
+});
+
+setInterval(function(){ loadAnalytics(); loadCampaigns(); loadSources(); }, 30000);
+</script>
+
+{% endblock %}

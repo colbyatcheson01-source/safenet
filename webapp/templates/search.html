@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Search{% endblock %}
+{% block content %}
+<h1>Search SafeNet</h1>
+<form class="search-form" method="GET" action="{{ url_for('main.search') }}">
+    <div class="search-bar">
+        <input type="text" name="q" value="{{ query }}" placeholder="Search lessons, topics, keywords..." autofocus>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+</form>
+{% if query %}
+<div class="search-results">
+    {% if results %}
+    <p class="result-count">{{ results|length }} result(s) for "{{ query }}"</p>
+    {% for r in results %}
+    <a href="{{ url_for('main.lesson', lesson_id=r.id) if r.type == 'lesson' else '#' }}" class="search-result-item">
+        <span class="result-type badge badge-{{ r.type }}">{{ r.type }}</span>
+        <h3>{{ r.title }}</h3>
+        <p>{{ r.summary }}</p>
+    </a>
+    {% endfor %}
+    {% else %}
+    <div class="empty-state">
+        <p>No results found for "{{ query }}". Try different keywords.</p>
+    </div>
+    {% endif %}
+</div>
+{% endif %}
+{% endblock %}

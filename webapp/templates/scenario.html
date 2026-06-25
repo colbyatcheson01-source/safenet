@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}{{ scenario.title }}{% endblock %}
+{% block content %}
+<nav class="breadcrumb">
+    <a href="{{ url_for('main.scenarios') }}">🎮 Scenarios</a> / {{ scenario.title }}
+</nav>
+
+<div class="page-head">
+    <h1>{{ scenario.title }}</h1>
+    <p class="page-sub">{{ scenario.description }}</p>
+</div>
+
+<div class="scenario-box" id="scenarioPlayer" data-sid="{{ scenario.id }}">
+    <div class="scenario-progress" id="scenarioProgress"></div>
+    <div class="scenario-step" id="scenarioStep">
+        <div class="step-bubble" id="stepText"></div>
+        <div class="step-choices" id="stepChoices"></div>
+        <div class="step-feedback" id="stepFeedback" style="display:none;"></div>
+        <div class="step-outcome" id="stepOutcome" style="display:none;"></div>
+    </div>
+    <div class="scenario-footer">
+        <button class="btn btn-outline btn-sm" id="scenarioReset" style="display:none;">🔄 Try Again</button>
+        <a href="{{ url_for('main.scenarios') }}" class="btn btn-outline btn-sm">← All Scenarios</a>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/scenarios.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Report a Concern{% endblock %}
+{% block content %}
+<div class="page-head">
+    <h1>🚨 Report Something Suspicious</h1>
+    <p class="page-sub">Use this to report a profile, message, or anything that concerns you. Your report is saved to your account, and we'll tell you what to do next.</p>
+</div>
+
+<div class="report-wrap">
+    <div class="report-main">
+        <form id="report-form">
+            <div class="form-group">
+                <label>Which app or website?</label>
+                <input type="text" id="platform" name="platform" value="{{ prefilled.get('platform', '') }}" placeholder="e.g. Instagram, TikTok, Discord" required>
+            </div>
+            <div class="form-group">
+                <label>Profile link or username</label>
+                <input type="url" id="profile_url" name="profile_url" value="{{ prefilled.get('url', '') }}" placeholder="Paste the profile URL here" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Type of concern</label>
+                    <select id="category" name="category">
+                        <option value="suspicious_message">Suspicious message</option>
+                        <option value="grooming">Someone may be grooming a child</option>
+                        <option value="fake_profile">Fake profile</option>
+                        <option value="inappropriate_content">Inappropriate content</option>
+                        <option value="privacy_violation">Privacy concern</option>
+                        <option value="cyberbullying">Cyberbullying</option>
+                        <option value="other">Something else</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>How serious is it?</label>
+                    <select id="severity" name="severity">
+                        <option value="low">Not urgent — just want advice</option>
+                        <option value="medium" selected>Concerned — needs attention</option>
+                        <option value="high">Urgent — very worried</option>
+                        <option value="critical">Critical — immediate danger</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Describe what happened</label>
+                <textarea id="description" name="description" rows="5" required placeholder="What did you see? When did it happen? Who was involved? Be as detailed as you can."></textarea>
+            </div>
+            <div class="form-group">
+                <label>Your email (optional — only if you want a follow-up)</label>
+                <input type="email" id="email" name="email" placeholder="you@email.com">
+            </div>
+            <button type="submit" class="btn btn-primary">📨 Submit Report</button>
+        </form>
+        <div id="report-result" style="display:none;" class="alert alert-success"></div>
+    </div>
+
+    <div class="report-side">
+        <div class="side-card">
+            <h4>📸 Before you submit</h4>
+            <ul>
+                <li>Take screenshots with the date & time visible</li>
+                <li>Copy the profile URL</li>
+                <li>Note usernames and dates</li>
+                <li><strong>Don't share</strong> any inappropriate material</li>
+            </ul>
+        </div>
+        <div class="side-card urgent">
+            <h4>🚨 You still need to report here</h4>
+            <p>This saves a copy for you, but real action happens through <strong>NCMEC</strong>:</p>
+            <a href="https://report.cybertrip.org" target="_blank" class="btn btn-primary btn-sm btn-full">Go to NCMEC →</a>
+        </div>
+        <div class="side-card">
+            <h4>🆘 Immediate danger?</h4>
+            <p>If someone is in danger <strong>right now</strong>, call:</p>
+            <p class="emergency-num">911</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

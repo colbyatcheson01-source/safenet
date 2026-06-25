@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}My Reports{% endblock %}
+{% block content %}
+<div class="page-head">
+    <h1>📋 Reports I've Submitted</h1>
+    <p class="page-sub">Every report you submit is saved here so you can keep track.</p>
+</div>
+
+{% if reports %}
+<div class="report-list">
+    {% for r in reports %}
+    <div class="report-row">
+        <div class="report-row-head">
+            <span class="rep-platform">{{ r.platform }}</span>
+            <span class="rep-status rep-{{ r.status }}">{{ r.status }}</span>
+        </div>
+        <div class="report-row-url">{{ r.profile_url }}</div>
+        <div class="report-row-meta">
+            <span>{{ r.created_at[:10] }}</span>
+            <span class="rep-cat">{{ r.category }}</span>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty-card">
+    <p>You haven't submitted any reports yet.</p>
+    <a href="{{ url_for('main.report') }}" class="btn btn-primary">🚨 Submit your first report</a>
+</div>
+{% endif %}
+
+<div class="note-box">
+    <strong>📌 Important:</strong> Reports here are for your records. To get official help, always also report to <a href="https://report.cybertrip.org" target="_blank">NCMEC CyberTipline</a>.
+</div>
+{% endblock %}

@@ -1,0 +1,274 @@
+{% extends "base.html" %}
+{% block title %}Get SafeNet{% endblock %}
+{% block content %}
+
+<style>
+.sale-hero {
+  text-align: center; padding: 4rem 1rem 3rem;
+  background: linear-gradient(135deg, var(--secondary) 0%, #0d1b3e 100%);
+  margin: -2rem -1.5rem 2rem; color: #fff;
+  position: relative; overflow: hidden;
+}
+.sale-hero::after {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at 30% 50%, rgba(233,69,96,0.15) 0%, transparent 60%);
+}
+.sale-hero > * { position: relative; z-index: 1; max-width: 800px; margin-left: auto; margin-right: auto; }
+.sale-hero h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 1rem; line-height: 1.2; }
+.sale-hero h1 span { color: var(--primary); }
+.sale-hero p { font-size: 1.15rem; color: rgba(255,255,255,0.8); margin-bottom: 2rem; line-height: 1.6; }
+.sale-hero .btn { padding: 1rem 2.5rem; font-size: 1.1rem; }
+.sale-hero .trust-row { display: flex; justify-content: center; gap: 2rem; margin-top: 2rem; font-size: 0.9rem; color: rgba(255,255,255,0.6); flex-wrap: wrap; }
+
+.sale-section { max-width: 1100px; margin: 0 auto 3rem; }
+.sale-section h2 { font-size: 1.8rem; text-align: center; margin-bottom: 0.5rem; }
+.sale-section .section-sub { text-align: center; color: var(--text-muted); margin-bottom: 2rem; font-size: 1.05rem; }
+
+.feature-showcase { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+.showcase-card { background: var(--bg-card); border-radius: var(--radius); padding: 2rem; box-shadow: 0 2px 12px rgba(0,0,0,0.06); transition: transform 0.2s, box-shadow 0.2s; }
+.showcase-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+.showcase-icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
+.showcase-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+.showcase-card p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; }
+
+.testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; }
+.testimonial-card { background: var(--bg-card); border-radius: var(--radius); padding: 1.5rem; box-shadow: 0 1px 6px rgba(0,0,0,0.05); border-left: 4px solid var(--primary); }
+.testimonial-card .quote { font-size: 0.92rem; font-style: italic; color: var(--text); line-height: 1.6; margin-bottom: 0.8rem; }
+.testimonial-card .author { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; }
+
+.pricing-grid { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+.pricing-card { max-width: 550px; width: 100%; background: var(--bg-card); border-radius: var(--radius); padding: 2.5rem; box-shadow: 0 2px 12px rgba(0,0,0,0.06); text-align: center; border: 2px solid var(--primary); }
+.pricing-card .price-label { font-size: 2.5rem; font-weight: 800; color: var(--primary); }
+.pricing-card .price-sub { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.2rem; }
+.pricing-card .price-desc { font-size: 0.92rem; color: var(--text); margin-bottom: 1.5rem; line-height: 1.6; }
+.pricing-card .btn-lg { padding: 1rem 3rem; }
+
+.donate-form { max-width: 500px; margin: 1.5rem auto; background: var(--bg-card); border-radius: var(--radius); padding: 2rem; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+.donate-form .form-row-btn { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; justify-content: center; }
+.donate-form .amount-btn { padding: 0.6rem 1.4rem; border: 2px solid var(--border); border-radius: 8px; background: var(--bg-card); color: var(--text); font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.donate-form .amount-btn:hover, .donate-form .amount-btn.selected { border-color: var(--primary); background: var(--primary); color: #fff; }
+
+.faq-list { max-width: 750px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.6rem; }
+.faq-item { background: var(--bg-card); border-radius: var(--radius); overflow: hidden; }
+.faq-q { padding: 1rem 1.5rem; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 0.95rem; user-select: none; }
+.faq-q:hover { background: rgba(0,0,0,0.02); }
+.faq-a { padding: 0 1.5rem 1rem; font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; display: none; }
+.faq-a.open { display: block; }
+
+.sale-download-bar { text-align: center; background: linear-gradient(135deg, var(--secondary) 0%, #0d1b3e 100%); padding: 3rem 2rem; border-radius: var(--radius); margin-bottom: 2rem; }
+.sale-download-bar h2 { color: #fff; font-size: 1.6rem; margin-bottom: 0.5rem; }
+.sale-download-bar p { color: rgba(255,255,255,0.8); margin-bottom: 1.2rem; }
+.sale-download-bar .btn { padding: 1rem 2.5rem; font-size: 1.1rem; }
+
+@media (max-width: 768px) {
+  .sale-hero { padding: 2.5rem 1rem 2rem; }
+  .sale-hero h1 { font-size: 1.8rem; }
+  .feature-showcase { grid-template-columns: 1fr; }
+  .sale-section h2 { font-size: 1.4rem; }
+}
+</style>
+
+<div class="sale-hero">
+  <h1>Protect Your Family <span>Online</span> — Starting Today</h1>
+  <p>SafeNet gives parents the tools to teach, monitor, and respond to online threats — all in one free app. No technical skills required.</p>
+  <a href="#download" class="btn btn-primary btn-lg">Get SafeNet Free</a>
+  <div class="trust-row">
+    <span>✅ 10 interactive lessons</span>
+    <span>✅ Built-in reporting tools</span>
+    <span>✅ Family safety plan</span>
+    <span>✅ Chrome extension included</span>
+  </div>
+</div>
+
+<div class="sale-section" id="features">
+  <h2>Everything a Parent Needs</h2>
+  <p class="section-sub">Designed for non-technical parents who want real protection — not confusion.</p>
+  <div class="feature-showcase">
+    <div class="showcase-card">
+      <div class="showcase-icon">📚</div>
+      <h3>Interactive Lessons</h3>
+      <p>10 bite-sized lessons covering privacy, phishing, social media safety, cyberbullying, and more. Each with a quiz to reinforce learning.</p>
+    </div>
+    <div class="showcase-card">
+      <div class="showcase-icon">🚨</div>
+      <h3>One-Click Reporting</h3>
+      <p>Spot something suspicious? Report it in seconds. Generate a downloadable report for NCMEC or local law enforcement — no hassle.</p>
+    </div>
+    <div class="showcase-card">
+      <div class="showcase-icon">🎮</div>
+      <h3>Interactive Scenarios</h3>
+      <p>Walk through real-world situations with your child — phishing attempts, stranger danger, pressure to share photos — and learn the right response.</p>
+    </div>
+    <div class="showcase-card">
+      <div class="showcase-icon">📊</div>
+      <h3>Family Dashboard</h3>
+      <p>See your family's safety score at a glance. Track completed lessons, reports filed, and checklist progress — all in one place.</p>
+    </div>
+    <div class="showcase-card">
+      <div class="showcase-icon">📝</div>
+      <h3>Family Safety Plan</h3>
+      <p>Create a customized family safety plan together. Set screen time rules, designate trusted adults, and agree on reporting steps.</p>
+    </div>
+    <div class="showcase-card">
+      <div class="showcase-icon">🔍</div>
+      <h3>OSINT Scanner</h3>
+      <p>Check if your child's username appears across 25+ platforms. Scan for exposed email addresses in known breaches. Free and private.</p>
+    </div>
+    <div class="showcase-card">
+      <div class="showcase-icon">🧩</div>
+      <h3>Chrome Extension</h3>
+      <p>Right-click any profile or post to flag it. Quick-report presets, screenshot capture, and automatic platform detection — all from your browser.</p>
+    </div>
+    <div class="showcase-card">
+      <div class="showcase-icon">📱</div>
+      <h3>Parent Mobile Dashboard</h3>
+      <p>A dedicated parent view (web and desktop app) shows safety score, recent activity, and a daily tip — updated in real time.</p>
+    </div>
+    <div class="showcase-card">
+      <div class="showcase-icon">🔄</div>
+      <h3>Automatic Updates</h3>
+      <p>SafeNet checks for updates on every launch and installs them with one click. You always have the latest features and protections.</p>
+    </div>
+  </div>
+</div>
+
+<div class="sale-section">
+  <h2>Trusted by Parents</h2>
+  <p class="section-sub">Here's what early users are saying.</p>
+  <div class="testimonial-grid">
+    <div class="testimonial-card">
+      <div class="quote">"I'm not tech-savvy at all, but I had SafeNet running in 5 minutes. My kids actually enjoyed the lessons — that's a miracle."</div>
+      <div class="author">— Maria K., parent of two</div>
+    </div>
+    <div class="testimonial-card">
+      <div class="quote">"The reporting tool gave me peace of mind. When we found something concerning, I knew exactly what to do and who to send it to."</div>
+      <div class="author">— James R., father of a teen</div>
+    </div>
+    <div class="testimonial-card">
+      <div class="quote">"I love the parent dashboard. I can see at a glance if we're keeping up with safety habits. The checklist keeps us accountable."</div>
+      <div class="author">— Alicia T., mom of three</div>
+    </div>
+  </div>
+</div>
+
+<div class="sale-section" id="pricing">
+  <h2>Pay What You Can</h2>
+  <p class="section-sub">SafeNet is free for everyone. If you find it valuable, consider a donation to help us reach more families.</p>
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="price-label">$0</div>
+      <div class="price-sub">Always free — no hidden charges</div>
+      <div class="price-desc">Every feature, every tool, every update. No trials, no subscriptions, no credit card required. If SafeNet helps your family, throw a few dollars our way. If not, keep it free — we're just glad you're protected.</div>
+      <a href="#download" class="btn btn-primary btn-lg">Download Free</a>
+    </div>
+  </div>
+  <div class="donate-form" id="donate">
+    <h3 style="text-align:center; margin-bottom:0.5rem;">💛 Support SafeNet</h3>
+    <p style="text-align:center; font-size:0.9rem; color:var(--text-muted); margin-bottom:1.2rem;">Your donation helps us maintain servers, develop new lessons, and spread the word.</p>
+    <div class="form-row-btn">
+      <button class="amount-btn" data-amount="5">$5</button>
+      <button class="amount-btn" data-amount="10">$10</button>
+      <button class="amount-btn selected" data-amount="20">$20</button>
+      <button class="amount-btn" data-amount="50">$50</button>
+      <button class="amount-btn" data-amount="100">$100</button>
+    </div>
+    <div class="form-group">
+      <input type="text" id="donateName" placeholder="Your name (optional)">
+    </div>
+    <div class="form-group">
+      <input type="email" id="donateEmail" placeholder="Your email">
+    </div>
+    <div class="form-group">
+      <textarea id="donateMsg" rows="2" placeholder="Leave a message (optional)"></textarea>
+    </div>
+    <button class="btn btn-primary btn-full" id="donateBtn">Support SafeNet</button>
+    <p style="font-size:0.8rem; color:var(--text-muted); text-align:center; margin-top:0.8rem;">💳 This is a pledge of support. We will follow up with payment instructions.</p>
+    <div id="donateResult" style="margin-top:0.8rem; display:none;" class="alert alert-success"></div>
+  </div>
+</div>
+
+<div class="sale-section" id="faq">
+  <h2>Frequently Asked Questions</h2>
+  <p class="section-sub">Quick answers to common questions.</p>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Do I need any technical skills? <span>▸</span></div>
+      <div class="faq-a">SafeNet is built for non-technical parents. Download, double-click, and your browser opens to the dashboard. That's it.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Is SafeNet really free? <span>▸</span></div>
+      <div class="faq-a">Yes. All features are free. We accept optional donations to cover hosting and development costs, but you'll never hit a paywall.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">How does reporting work? <span>▸</span></div>
+      <div class="faq-a">You fill out a simple form with the platform and profile URL. SafeNet generates a report you can submit to NCMEC's CyberTipline. All data stays on your computer unless you choose to send it.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Can my children use it too? <span>▸</span></div>
+      <div class="faq-a">Absolutely. The lessons and scenarios are age-appropriate and designed for families to go through together. The dashboard is parent-focused.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Is my data private? <span>▸</span></div>
+      <div class="faq-a">Yes. SafeNet runs locally on your computer. Reports are stored locally until you choose to submit them externally. We don't sell or share your data.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Does it work on Mac? <span>▸</span></div>
+      <div class="faq-a">The web app works on any OS with Python. The Windows EXE is a convenience wrapper — the full app can run on Mac or Linux via the command line.</div>
+    </div>
+  </div>
+</div>
+
+<div class="sale-section" id="download">
+  <div class="sale-download-bar">
+    <h2>Get SafeNet Free</h2>
+    <p>Download now. No signup required. Pay what you can, if you can.</p>
+    <a href="{{ url_for('main.download_exe') }}" class="btn btn-primary btn-lg" id="downloadBtn" onclick="trackDownload()">⬇ Download for Windows (SafeNet.exe)</a>
+    <p style="color:rgba(255,255,255,0.6); font-size:0.85rem; margin-top:0.8rem;">15 MB standalone — no Python needed. <a href="#faq" style="color:var(--primary);">Other platforms.</a></p>
+  </div>
+</div>
+
+<script>
+navigator.sendBeacon("/api/analytics/track", JSON.stringify({event: "page_view", source: document.referrer || "direct"}));
+
+function toggleFaq(el) {
+  var a = el.nextElementSibling;
+  a.classList.toggle("open");
+  el.querySelector("span").textContent = a.classList.contains("open") ? "▾" : "▸";
+}
+
+var selectedAmount = 20;
+document.querySelectorAll(".amount-btn").forEach(function(btn) {
+  btn.addEventListener("click", function() {
+    document.querySelectorAll(".amount-btn").forEach(function(b) { b.classList.remove("selected"); });
+    this.classList.add("selected");
+    selectedAmount = parseInt(this.dataset.amount);
+  });
+});
+
+document.getElementById("donateBtn").addEventListener("click", function() {
+  var name = document.getElementById("donateName").value;
+  var email = document.getElementById("donateEmail").value;
+  var msg = document.getElementById("donateMsg").value;
+  var el = document.getElementById("donateResult");
+  if (!email) { el.style.display = "block"; el.className = "alert alert-error"; el.textContent = "Please enter your email so we can follow up."; return; }
+  fetch("/api/donate", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({name: name, email: email, amount: selectedAmount, message: msg})
+  }).then(function(r) { return r.json(); }).then(function(d) {
+    el.style.display = "block"; el.className = "alert alert-success";
+    el.textContent = "Thank you for your support! We'll be in touch at " + email + ".";
+    document.getElementById("donateBtn").disabled = true;
+    document.getElementById("donateBtn").textContent = "Thank You 💛";
+  }).catch(function() {
+    el.style.display = "block"; el.className = "alert alert-error";
+    el.textContent = "Something went wrong. Please try again.";
+  });
+});
+
+function trackDownload() {
+  navigator.sendBeacon("/api/analytics/track", JSON.stringify({event: "download", source: document.referrer || "direct"}));
+}
+</script>
+
+{% endblock %}

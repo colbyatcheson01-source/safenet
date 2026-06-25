@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="auth-form">
+    <h1>Login</h1>
+    {% if error %}<div class="alert alert-error">{{ error }}</div>{% endif %}
+    <form method="POST" action="{{ url_for('main.login') }}">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full">Login</button>
+    </form>
+    <p class="auth-alt">Don't have an account? <a href="{{ url_for('main.register') }}">Sign up</a></p>
+    <p class="auth-alt">Want to try it out? <a href="{{ url_for('main.demo_login') }}">Use demo account</a></p>
+</div>
+{% endblock %}

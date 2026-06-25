@@ -1,0 +1,259 @@
+{
+  "scenarios": [
+    {
+      "id": 1,
+      "title": "Stranger in the DMs",
+      "description": "Your 12-year-old shows you a direct message from someone they don't know. Practice how to handle it.",
+      "steps": [
+        {
+          "id": "start",
+          "text": "Your child says: 'Someone I don't know sent me a message on Instagram. They said I'm really talented and want to be friends.'",
+          "choices": [
+            {"text": "Tell them to block the person immediately", "next": "block_only", "feedback": "Blocking is good, but there's more to do. Let's see what happens next."},
+            {"text": "Ask to see the profile and full conversation", "next": "investigate", "feedback": "Great! Gathering information first is the right approach."},
+            {"text": "Tell them to ignore it and move on", "next": "ignore", "feedback": "Ignoring alone isn't enough. The person might contact other children."}
+          ]
+        },
+        {
+          "id": "investigate",
+          "text": "You look at the profile. It has only 3 posts from 2 days ago and stock photos. The account has no mutual friends. The message seems too friendly for someone they've never met.",
+          "choices": [
+            {"text": "Block the account and report it to Instagram", "next": "report_step", "feedback": "Correct! Always report suspicious accounts to the platform."},
+            {"text": "Reply asking who they are first", "next": "engage", "feedback": "Engaging with strangers puts your child at risk. Never reply."},
+            {"text": "Delete the message and forget about it", "next": "no_report", "feedback": "Deleting without reporting means the person can target other children."}
+          ]
+        },
+        {
+          "id": "block_only",
+          "text": "You block the person, but the next day your child says they got another message from a different account with similar photos. The same person created a new profile.",
+          "choices": [
+            {"text": "Report both accounts to Instagram and NCMEC", "next": "proper_report", "feedback": "Yes! Reporting to both the platform and NCMEC is the complete response."},
+            {"text": "Make your child's account private and increase restrictions", "next": "privacy", "feedback": "Good step but you should also report so the platform can remove the predator."},
+            {"text": "Tell your child to just ignore messages from now on", "next": "ignore_again", "feedback": "This puts the burden on your child and doesn't stop the predator."}
+          ]
+        },
+        {
+          "id": "proper_report",
+          "text": "You report both accounts to Instagram, submit a report to NCMEC, and make your child's account private. You have a conversation with your child about online stranger danger. Well done!",
+          "choices": [],
+          "final": true,
+          "outcome": "You handled this perfectly. The accounts are flagged, law enforcement has a report, and your child learned an important lesson."
+        },
+        {
+          "id": "report_step",
+          "text": "You block and report the account to Instagram. You also save screenshots and report to NCMEC. Your child now knows to come to you with suspicious messages.",
+          "choices": [],
+          "final": true,
+          "outcome": "Excellent response. You took the proper steps and strengthened trust with your child."
+        },
+        {
+          "id": "engage",
+          "text": "Your child replies asking who they are. The person sends a very friendly reply and asks personal questions. This is how grooming starts.",
+          "choices": [],
+          "final": true,
+          "outcome": "Warning: Engaging with unknown accounts can lead to grooming. Block and report without engaging."
+        },
+        {
+          "id": "no_report",
+          "text": "You delete the message but don't report. A week later, a neighbor mentions their child got a similar message. The predator is still active.",
+          "choices": [],
+          "final": true,
+          "outcome": "Not reporting puts other children at risk. Always report suspicious accounts to the platform and NCMEC."
+        },
+        {
+          "id": "privacy",
+          "text": "You make your child's account private and set stricter controls. This reduces risk, but the predator is still out there targeting other kids.",
+          "choices": [],
+          "final": true,
+          "outcome": "Privacy settings are important but reporting suspicious accounts helps protect the whole community."
+        },
+        {
+          "id": "ignore",
+          "text": "Your child ignores it, but a week later gets another message from a different account. The person is persistent.",
+          "choices": [],
+          "final": true,
+          "outcome": "Ignoring isn't enough. Block, report, and strengthen privacy settings."
+        },
+        {
+          "id": "ignore_again",
+          "text": "Your child ignores further messages but feels unsafe and anxious about using the app. The predator may still be contacting other children.",
+          "choices": [],
+          "final": true,
+          "outcome": "Ignoring addresses the symptom, not the cause. Report to stop the predator from targeting others."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "The Friend Request",
+      "description": "Your child wants to accept a friend request from someone they don't know well. Guide them through the decision.",
+      "steps": [
+        {
+          "id": "start",
+          "text": "Your 10-year-old asks: 'Can I accept a friend request from my friend's cousin? I've never met them but they're in [friend's] photos.'",
+          "choices": [
+            {"text": "Say no — only accept people you know in real life", "next": "safe_choice", "feedback": "Good boundary setting. Let's see why this matters."},
+            {"text": "Say yes — they're connected to a friend", "next": "unsafe_choice", "feedback": "Being connected to a friend doesn't mean the person is safe."},
+            {"text": "Ask your child to message their friend first to confirm", "next": "verify", "feedback": "Verifying through a trusted real-life connection is smart."}
+          ]
+        },
+        {
+          "id": "safe_choice",
+          "text": "You explain that it's safer to only friend people they've actually met. Your child understands. You use this as a teaching moment about online vs real-life friends.",
+          "choices": [],
+          "final": true,
+          "outcome": "Excellent. You set a clear rule and explained the reasoning, which helps your child make good decisions independently."
+        },
+        {
+          "id": "unsafe_choice",
+          "text": "Your child accepts. A week later, the 'cousin' starts asking personal questions. It turns out the profile was fake and the person isn't related to the friend at all.",
+          "choices": [],
+          "final": true,
+          "outcome": "This is why accepting strangers — even when they seem connected — is risky. Always verify real-life connections."
+        },
+        {
+          "id": "verify",
+          "text": "Your child asks their friend, who confirms they do have a cousin with that name but haven't actually met them in person either. The cousin lives in another state.",
+          "choices": [
+            {"text": "Decline the request — still not a known real-life person", "next": "still_decline", "feedback": "Correct. Even verified online connections aren't the same as real-life friends."},
+            {"text": "Accept — they're verified as a real person", "next": "accept_verified", "feedback": "Being a real person doesn't mean they're safe to connect with."}
+          ]
+        },
+        {
+          "id": "still_decline",
+          "text": "You explain that even though the person is real, it's best to only connect with people you've actually met. Your child agrees and understands the distinction.",
+          "choices": [],
+          "final": true,
+          "outcome": "Perfect. You taught your child a nuanced safety rule they can apply independently."
+        },
+        {
+          "id": "accept_verified",
+          "text": "Your child accepts. The cousin turns out to be harmless, but now your child has accepted someone they've never met. This sets a precedent that could be exploited by someone with bad intentions.",
+          "choices": [],
+          "final": true,
+          "outcome": "Even when the outcome is harmless, the pattern of accepting strangers online is risky. Better to keep the rule consistent."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "The Secret Game",
+      "description": "Your child mentions a new app that lets you chat with 'random people'. Help them navigate this situation safely.",
+      "steps": [
+        {
+          "id": "start",
+          "text": "Your 14-year-old mentions a new app where you can chat anonymously with random people. 'Everyone at school uses it,' they say. 'It's fun to talk to people from other countries.'",
+          "choices": [
+            {"text": "Ask to see the app and research it together", "next": "research", "feedback": "Great approach. Investigating together builds trust and awareness."},
+            {"text": "Immediately forbid the app", "next": "forbid", "feedback": "Banning without discussion may drive them to use it secretly."},
+            {"text": "Let them use it — they're old enough to be responsible", "next": "let_use", "feedback": "Anonymous chat apps are high-risk even for teens."}
+          ]
+        },
+        {
+          "id": "research",
+          "text": "You look at the app together. The app has anonymous chat rooms, no age verification, no content moderation, and users can share photos. The privacy policy says they collect and share data widely.",
+          "choices": [
+            {"text": "Explain the specific risks you found and discuss safer alternatives", "next": "teach_risks", "feedback": "Excellent teaching moment. Your teen will remember this."},
+            {"text": "Just say it's dangerous and ban it", "next": "missed_opportunity", "feedback": "You're right about the danger but missed a chance to teach critical thinking."},
+            {"text": "Let them use it with strict rules about what they share", "next": "strict_rules", "feedback": "Strict rules aren't enough when the platform itself is unmoderated."}
+          ]
+        },
+        {
+          "id": "teach_risks",
+          "text": "You talk through each risk you found: anonymous means untraceable predators, no moderation means anything can be shared, data collection means their info is sold. Together you find a safer app that has age verification and moderation. Your teen appreciates being treated like a partner in the decision.",
+          "choices": [],
+          "final": true,
+          "outcome": "This is the ideal outcome. Your teen learned to evaluate apps critically and you found a safer alternative together."
+        },
+        {
+          "id": "forbid",
+          "text": "Your teen is frustrated. A few weeks later you discover they've been using the app at a friend's house where parents don't supervise.",
+          "choices": [],
+          "final": true,
+          "outcome": "Bans without education often fail. Teens will find ways around restrictions. Open dialogue is more effective."
+        },
+        {
+          "id": "let_use",
+          "text": "Your teen uses the app. After a few weeks they receive an inappropriate photo from an anonymous user. They feel uncomfortable and confused about what to do.",
+          "choices": [],
+          "final": true,
+          "outcome": "Anonymous chat apps without moderation inevitably expose users to harmful content. Always research apps before allowing them."
+        },
+        {
+          "id": "missed_opportunity",
+          "text": "Your teen accepts the ban but doesn't understand why. They don't learn how to evaluate apps themselves and remain vulnerable to the next dangerous app.",
+          "choices": [],
+          "final": true,
+          "outcome": "Teaching critical thinking is more valuable than any single app ban. Use every app as a teaching opportunity."
+        },
+        {
+          "id": "strict_rules",
+          "text": "Despite your rules, your teen is curious. The anonymous nature of the app means they encounter explicit content within a week.",
+          "choices": [],
+          "final": true,
+          "outcome": "When the platform itself is unsafe, rules aren't enough. Choose apps that are designed for safety from the start."
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Pressure for Private Photos",
+      "description": "Someone is pressuring your child for private photos. Practice the right response.",
+      "steps": [
+        {
+          "id": "start",
+          "text": "Your 13-year-old comes to you looking upset. They say someone they've been talking to online for a month is asking for 'just one photo' and says everyone sends them. Your child feels pressured.",
+          "choices": [
+            {"text": "Thank your child for coming to you", "next": "thank", "feedback": "Perfect first response. They need to feel safe coming to you."},
+            {"text": "Ask why they would even talk to someone like that", "next": "blame", "feedback": "Blaming shuts down communication. Your child may not come to you next time."},
+            {"text": "Tell them to just block the person and forget it", "next": "dismiss", "feedback": "This addresses the symptom but misses the emotional support they need."}
+          ]
+        },
+        {
+          "id": "thank",
+          "text": "You say: 'I'm so glad you told me. You did the right thing. This is not your fault. Let's handle this together.' Your child looks relieved.",
+          "choices": [
+            {"text": "Help them block the person and report the account", "next": "help_report", "feedback": "Great. Taking action together empowers your child."},
+            {"text": "Have a conversation about why sending photos is dangerous", "next": "educate", "feedback": "Important conversation, but also take action to stop this person."},
+            {"text": "Take the phone away and handle it yourself", "next": "take_over", "feedback": "Taking over completely disempowers your child. Work together."}
+          ]
+        },
+        {
+          "id": "help_report",
+          "text": "Together you block the person, report the account to the platform, and save evidence for a report to NCMEC. You discuss that real friends never pressure for private photos. Your child feels supported and empowered.",
+          "choices": [],
+          "final": true,
+          "outcome": "This is the gold standard response. Your child felt safe coming to you, you took effective action together, and they learned a valuable lesson."
+        },
+        {
+          "id": "blame",
+          "text": "Your child gets defensive. 'I thought you'd be mad. I knew I shouldn't have told you.' They stop sharing details about their online life.",
+          "choices": [],
+          "final": true,
+          "outcome": "Blaming your child when they come to you with a problem will cause them to hide future issues. Always thank them first."
+        },
+        {
+          "id": "dismiss",
+          "text": "Your child blocks the person but still feels confused and upset. They don't fully understand what happened or why it was wrong. They're more vulnerable to the next person who pressures them.",
+          "choices": [],
+          "final": true,
+          "outcome": "Blocking addresses the immediate problem but misses the teaching moment. Help them understand why this happened."
+        },
+        {
+          "id": "educate",
+          "text": "You have a good conversation about photo safety, but you haven't reported the person. They send the same request to another child the next day.",
+          "choices": [],
+          "final": true,
+          "outcome": "Education is important, but always report predators to prevent them from targeting other children."
+        },
+        {
+          "id": "take_over",
+          "text": "You take the phone and handle everything without involving your child. They feel helpless and less confident about handling online situations on their own.",
+          "choices": [],
+          "final": true,
+          "outcome": "Work with your child, not for them. They need to learn how to handle these situations for when you're not there."
+        }
+      ]
+    }
+  ]
+}

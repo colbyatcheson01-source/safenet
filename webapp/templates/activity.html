@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}My Activity{% endblock %}
+{% block content %}
+<div class="page-head">
+    <h1>📋 Your Activity</h1>
+    <p class="page-sub">Everything you've done on SafeNet — lessons, quizzes, reports, and more.</p>
+</div>
+
+<div id="activityList" class="act-list">
+    <div class="loading">Loading your activity...</div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+fetch("/api/activity").then(function(r) { return r.json(); }).then(function(rows) {
+    var el = document.getElementById("activityList");
+    if (rows.length === 0) {
+        el.innerHTML = '<div class="empty-card"><p>No activity yet. Start by taking a lesson or submitting a report!</p><a href="{{ url_for('main.lessons') }}" class="btn btn-primary">📚 Browse Lessons</a></div>';
+        return;
+    }
+    var labels = {
+        login: "🔑 Signed in",
+        account_created: "🎉 Created account",
+        demo_login: "🔑 Signed in (demo)",
+        report_submitted: "🚨 Submitted a report",
+        quiz_completed: "✅ Completed a quiz",
+        safety_plan_saved: "📝 Saved safety plan",
+    };
+    var html = '<div class="timeline">';
+    rows.forEach(function(r) {
+        var label = labels[r.action] || r.action.replace(/_/g, " ");
+        html += '<div class="tl-item"><span class="tl-icon">' + (labels[r.action] ? labels[r.action].split(" ")[0] : "📌") + '</span><div class="tl-body"><strong>' + label + '</strong>';
+        if (r.details) html += '<span class="tl-detail">' + r.details + '</span>';
+        html += '<span class="tl-time">' + r.created_at + '</span></div></div>';
+    });
+    html += '</div>';
+    el.innerHTML = html;
+});
+</script>
+{% endblock %}

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeNet - {% block title %}Home{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{{ url_for('main.index') }}" class="nav-brand">SafeNet</a>
+            <button class="nav-toggle" id="navToggle">☰</button>
+            <div class="nav-links" id="navLinks">
+                <a href="{{ url_for('main.lessons') }}">Lessons</a>
+                <a href="{{ url_for('main.scenarios') }}">Scenarios</a>
+                <a href="{{ url_for('main.quiz') }}">Quiz</a>
+                <a href="{{ url_for('main.sale_page') }}">Get SafeNet</a>
+                <a href="{{ url_for('main.parent_dashboard') }}">👪 Parent</a>
+                <a href="{{ url_for('main.dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('main.report') }}" class="nav-report">Report</a>
+                <a href="{{ url_for('main.search') }}">Search</a>
+                <a href="{{ url_for('main.resources') }}">Resources</a>
+                <button class="dark-toggle" id="darkToggle" title="Toggle dark mode">🌙</button>
+                {% if session.user_id %}
+                <div class="nav-user">
+                    <span>{{ session.user_name }}</span>
+                    <a href="{{ url_for('main.list_reports') }}">My Reports</a>
+                    <a href="{{ url_for('main.activity') }}">Activity</a>
+                    <a href="{{ url_for('main.user_settings') }}">Settings</a>
+                    {% if session.is_admin %}<a href="{{ url_for('main.admin_marketing') }}" style="color:gold;">📢 Admin</a>{% endif %}
+                    <a href="{{ url_for('main.logout') }}">Logout</a>
+                </div>
+                {% else %}
+                <a href="{{ url_for('main.login') }}">Login</a>
+                <a href="{{ url_for('main.register') }}" class="nav-join">Sign Up</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="footer">
+        <div class="footer-grid">
+            <div>
+                <h4>SafeNet</h4>
+                <p>Keeping families safe online through education, tools, and reporting.</p>
+            </div>
+            <div>
+                <h4>Quick Links</h4>
+                <a href="{{ url_for('main.sale_page') }}">Get SafeNet</a>
+                <a href="{{ url_for('main.lessons') }}">Lessons</a>
+                <a href="{{ url_for('main.scenarios') }}">Scenarios</a>
+                <a href="{{ url_for('main.report') }}">Report</a>
+                <a href="{{ url_for('main.contact') }}">Contact</a>
+            </div>
+            <div>
+                <h4>External Resources</h4>
+                <a href="https://report.cybertrip.org" target="_blank">NCMEC CyberTipline</a>
+                <a href="https://www.ic3.gov" target="_blank">FBI IC3</a>
+                <a href="https://www.missingkids.org" target="_blank">Missing Kids</a>
+            </div>
+        </div>
+        <p class="footer-bottom">If you see something, say something — <a href="https://report.cybertrip.org" target="_blank">report.cybertrip.org</a></p>
+    </footer>
+    <div id="emergency-banner" class="emergency-banner" style="display:none;">
+        <span id="emergency-msg"></span>
+        <button onclick="this.parentElement.style.display='none'">✕</button>
+    </div>
+    <div id="update-banner" class="update-banner" style="display:none;">
+        <span id="update-msg"></span>
+        <button onclick="applyUpdate()" id="update-btn">Update Now</button>
+        <button onclick="document.getElementById('update-banner').style.display='none'">✕</button>
+    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+    fetch("/api/update/status").then(function(r){return r.json()}).then(function(s){
+        if (s.update_available) {
+            var b = document.getElementById("update-banner");
+            document.getElementById("update-msg").textContent = "Update v" + s.update_version + " available!";
+            b.style.display = "flex";
+        }
+    });
+    function applyUpdate() {
+        var btn = document.getElementById("update-btn");
+        btn.textContent = "Downloading...";
+        btn.disabled = true;
+        fetch("/api/update/apply").then(function(r){return r.json()}).then(function(d){
+            if (d.status === "applying") {
+                document.getElementById("update-msg").textContent = "Update downloaded. Restarting...";
+            }
+        });
+    }
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

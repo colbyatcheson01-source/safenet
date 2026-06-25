@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}Account Settings{% endblock %}
+{% block content %}
+<div class="page-head">
+    <h1>⚙️ Your Account</h1>
+    <p class="page-sub">Update your name, change your password, or manage API keys for the OSINT tool.</p>
+</div>
+
+<div class="set-grid">
+    <div class="set-card">
+        <h3>👤 Your Name</h3>
+        <form id="profileForm">
+            <div class="form-group">
+                <input type="text" name="name" value="{{ user.name }}" required>
+            </div>
+            <div class="form-group">
+                <label>Email (cannot be changed)</label>
+                <input type="email" value="{{ user.email }}" disabled>
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm">Save</button>
+        </form>
+        <div id="profileSaved" class="alert alert-success" style="display:none;margin-top:1rem;">✅ Name saved!</div>
+    </div>
+
+    <div class="set-card">
+        <h3>🔑 Change Password</h3>
+        <form id="passwordForm">
+            <div class="form-group">
+                <label>Current password</label>
+                <input type="password" name="current" required>
+            </div>
+            <div class="form-group">
+                <label>New password (at least 6 characters)</label>
+                <input type="password" name="new" required minlength="6">
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm">Change Password</button>
+        </form>
+        <div id="passwordSaved" class="alert alert-success" style="display:none;margin-top:1rem;">✅ Password changed!</div>
+        <div id="passwordError" class="alert alert-error" style="display:none;margin-top:1rem;"></div>
+    </div>
+
+    <div class="set-card">
+        <h3>🔐 API Keys</h3>
+        <p class="help-text">API keys let the OSINT tool send findings directly to your account. Only needed if you use the command-line OSINT tool.</p>
+        {% if api_keys %}
+        <ul class="key-list">
+            {% for k in api_keys %}
+            <li>
+                <code>{{ k.key[:20] }}...</code>
+                <small>{{ k.name }} · {{ k.created_at[:10] }}</small>
+                <button class="btn btn-outline btn-sm del-key" data-id="{{ k.id }}">Delete</button>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="help-text">No API keys yet.</p>
+        {% endif %}
+        <button class="btn btn-outline btn-sm" id="createApiKey">Generate New Key</button>
+        <div id="newKeyDisplay" style="display:none;margin-top:1rem;padding:1rem;background:#d8f3dc;border-radius:6px;word-break:break-all;">
+            <strong>Your new API key:</strong><br>
+            <code id="newKeyValue"></code><br>
+            <small>Save this — it won't be shown again.</small>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+document.getElementById("profileForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    fetch("/api/settings/profile", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({name: this.name.value})})
+    .then(function(r){return r.json()}).then(function(){document.getElementById("profileSaved").style.display="block"});
+});
+
+document.getElementById("passwordForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    fetch("/api/settings/password", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({current: this.current.value, new: this.new.value})})
+    .then(function(r){if(!r.ok)throw Error("bad");return r.json()})
+    .then(function(){document.getElementById("passwordSaved").style.display="block";document.getElementById("passwordError").style.display="none"})
+    .catch(function(){document.getElementById("passwordError").textContent="Current password is wrong";document.getElementById("passwordError").style.display="block"});
+});
+
+document.getElementById("createApiKey").addEventListener("click", function() {
+    fetch("/api/settings/api-key", {method:"POST", headers:{"Content-Type":"application/json"}, body:"{}"})
+    .then(function(r){return r.json()})
+    .then(function(d){document.getElementById("newKeyValue").textContent=d.key;document.getElementById("newKeyDisplay").style.display="block"});
+});
+
+document.querySelectorAll(".del-key").forEach(function(b) {
+    b.addEventListener("click", function() {
+        fetch("/api/settings/api-key/" + this.dataset.id, {method:"DELETE"}).then(function(){location.reload()});
+    });
+});
+</script>
+{% endblock %}

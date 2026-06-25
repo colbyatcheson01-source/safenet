@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Quiz{% endblock %}
+{% block content %}
+<div class="page-head">
+    <h1>✅ Test What You've Learned</h1>
+    <p class="page-sub">Pick a lesson and take a short quiz. Don't worry — you can retake any quiz as many times as you want.</p>
+</div>
+
+{% if not session.user_id %}
+<div class="alert alert-info">
+    💡 <a href="{{ url_for('main.login') }}">Sign in</a> to save your scores and track your progress over time.
+</div>
+{% endif %}
+
+<div class="quiz-list">
+    {% for lesson in lessons %}
+    <div class="quiz-card" id="lesson-{{ lesson.id }}">
+        <div class="quiz-card-head">
+            <div>
+                <span class="quiz-num">Lesson {{ lesson.id }}</span>
+                <h3>{{ lesson.title }}</h3>
+            </div>
+            <div class="quiz-card-actions">
+                {% if scores.get(lesson.id) %}
+                <span class="best-badge">🏆 Best: {{ scores[lesson.id].best }}/{{ scores[lesson.id].total }}</span>
+                {% endif %}
+                <button class="btn btn-primary btn-sm start-quiz" data-lesson="{{ lesson.id }}">Start Quiz</button>
+            </div>
+        </div>
+        <div class="quiz-body" id="quiz-{{ lesson.id }}" style="display:none;"></div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/lessons.js') }}"></script>
+{% endblock %}

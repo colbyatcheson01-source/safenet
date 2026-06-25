@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}Family Safety Plan{% endblock %}
+{% block content %}
+<div class="page-head">
+    <h1>📝 Your Family Safety Plan</h1>
+    <p class="page-sub">Fill this out together as a family. Keep it somewhere you can find it if something happens.</p>
+</div>
+
+<form id="safetyPlanForm" class="plan-form">
+    <div class="plan-block">
+        <h3>🛡️ Family Rules</h3>
+        <div class="form-group">
+            <label>How many hours of screen time per day?</label>
+            <input type="number" name="screen_time" value="{{ plan.get('screen_time', '2') }}" min="0" max="24">
+        </div>
+        <div class="form-group">
+            <label>Which apps are okay? (separate with commas)</label>
+            <input type="text" name="allowed_apps" value="{{ plan.get('allowed_apps', '') }}" placeholder="e.g. Instagram, YouTube, TikTok">
+        </div>
+        <div class="form-group">
+            <label>Do devices stay in shared rooms?</label>
+            <select name="common_areas">
+                <option value="yes" {% if plan.get('common_areas') == 'yes' %}selected{% endif %}>Yes — no devices in bedrooms</option>
+                <option value="no" {% if plan.get('common_areas') == 'no' %}selected{% endif %}>No — devices allowed anywhere</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="plan-block">
+        <h3>📞 Emergency Contacts</h3>
+        <div class="form-group">
+            <label>Parent or guardian name</label>
+            <input type="text" name="parent_name" value="{{ plan.get('parent_name', '') }}">
+        </div>
+        <div class="form-group">
+            <label>Parent's phone number</label>
+            <input type="text" name="parent_phone" value="{{ plan.get('parent_phone', '') }}">
+        </div>
+        <div class="form-group">
+            <label>Local police (non-emergency number)</label>
+            <input type="text" name="police_number" value="{{ plan.get('police_number', '') }}">
+        </div>
+        <div class="form-group">
+            <label>NCMEC hotline</label>
+            <input type="text" value="1-800-THE-LOST (1-800-843-5678)" disabled>
+        </div>
+    </div>
+
+    <div class="plan-block">
+        <h3>📋 What To Do If...</h3>
+        <div class="form-group">
+            <label>...your child gets a suspicious message:</label>
+            <textarea name="step_inappropriate" rows="3">{{ plan.get('step_inappropriate', '1. Stay calm\n2. Take screenshots\n3. Block and report\n4. Contact NCMEC') }}</textarea>
+        </div>
+        <div class="form-group">
+            <label>...your child feels unsafe online:</label>
+            <textarea name="step_child_unsafe" rows="3">{{ plan.get('step_child_unsafe', '1. Stop talking to the person\n2. Take a screenshot\n3. Tell a parent right away') }}</textarea>
+        </div>
+    </div>
+
+    <div class="plan-actions">
+        <button type="submit" class="btn btn-primary">💾 Save My Plan</button>
+        <a href="{{ url_for('main.export_safety_plan') }}" class="btn btn-outline">📄 Download as text</a>
+    </div>
+</form>
+<div id="planSaved" class="alert alert-success" style="display:none;">✅ Plan saved!</div>
+{% endblock %}
+{% block scripts %}
+<script>
+document.getElementById("safetyPlanForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    var data = {};
+    new FormData(this).forEach(function(v, k) { data[k] = v; });
+    fetch("/api/safety-plan", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(data)
+    }).then(function(r) { return r.json(); }).then(function() {
+        var el = document.getElementById("planSaved");
+        el.style.display = "block";
+        setTimeout(function() { el.style.display = "none"; }, 3000);
+    }).catch(function() {
+        var el = document.getElementById("planSaved");
+        if (el) { el.textContent = "Could not save. Try again."; el.style.display = "block"; }
+    });
+});
+</script>
+{% endblock %}

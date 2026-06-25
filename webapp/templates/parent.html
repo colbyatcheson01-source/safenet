@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% block title %}Parent Dashboard{% endblock %}
+{% block content %}
+<style>
+.pg { max-width: 500px; margin: 0 auto; }
+.pg h1 { font-size: 1.4rem; text-align: center; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+.pg h1 small { font-size: 0.8rem; font-weight: 400; color: var(--text-muted); }
+.pg-card { background: var(--bg-card); border-radius: 16px; padding: 1.2rem 1.5rem; margin-bottom: 0.8rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.pg-card h2 { font-size: 1rem; margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.4rem; }
+.pg-score { display: flex; align-items: center; gap: 1.5rem; justify-content: center; padding: 0.5rem 0; }
+.pg-score-num { font-size: 3rem; font-weight: 800; color: var(--primary); line-height: 1; }
+.pg-score-label { font-size: 0.85rem; color: var(--text-muted); }
+.pg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.pg-stat { text-align: center; padding: 0.8rem; background: var(--bg); border-radius: 12px; }
+.pg-stat-num { font-size: 1.8rem; font-weight: 700; color: var(--primary); display: block; }
+.pg-stat-label { font-size: 0.78rem; color: var(--text-muted); }
+.pg-progress { margin: 0.5rem 0; }
+.pg-bar { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+.pg-bar-fill { height: 100%; background: var(--primary); border-radius: 4px; transition: width 0.5s; }
+.pg-items { list-style: none; }
+.pg-items li { display: flex; align-items: center; gap: 0.5rem; padding: 0.35rem 0; font-size: 0.88rem; border-bottom: 1px solid var(--border); }
+.pg-items li:last-child { border-bottom: none; }
+.pg-items input { width: 18px; height: 18px; accent-color: var(--primary); flex-shrink: 0; }
+.pg-actions { display: flex; flex-direction: column; gap: 0.5rem; }
+.pg-btn { display: block; padding: 0.8rem 1rem; border-radius: 12px; text-decoration: none; font-size: 0.95rem; font-weight: 600; text-align: center; }
+.pg-btn.primary { background: var(--primary); color: #fff; }
+.pg-btn.primary:hover { background: var(--primary-hover); }
+.pg-btn.secondary { background: var(--secondary); color: #fff; }
+.pg-btn.outline { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+.pg-tip { font-size: 0.85rem; color: var(--text-muted); font-style: italic; line-height: 1.5; padding: 0.3rem 0; }
+.pg-footer { text-align: center; font-size: 0.78rem; color: var(--text-muted); margin-top: 1rem; }
+</style>
+
+<div class="pg">
+    <h1>🛡️ Parent Dashboard <small>at a glance</small></h1>
+
+    {% if session.user_id %}
+    <div id="pgContent">
+        <div class="pg-card">
+            <h2>📊 Safety Score</h2>
+            <div class="pg-score">
+                <div>
+                    <div class="pg-score-num" id="pgScoreNum">0%</div>
+                    <div class="pg-score-label" id="pgScoreLabel">Getting started</div>
+                </div>
+                <div class="pg-progress" style="flex:1">
+                    <div class="pg-bar"><div class="pg-bar-fill" id="pgScoreBar" style="width:0%"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pg-card">
+            <h2>📋 Activity Summary</h2>
+            <div class="pg-grid">
+                <div class="pg-stat"><span class="pg-stat-num" id="pgReports">0</span><span class="pg-stat-label">Reports</span></div>
+                <div class="pg-stat"><span class="pg-stat-num" id="pgQuizzes">0</span><span class="pg-stat-label">Quizzes</span></div>
+            </div>
+        </div>
+
+        <div class="pg-card">
+            <h2>✅ Checklist</h2>
+            <ul class="pg-items" id="pgChecklist">
+                <li><input type="checkbox" data-key="private_accounts"> Private accounts</li>
+                <li><input type="checkbox" data-key="location_off"> Location off</li>
+                <li><input type="checkbox" data-key="2fa_enabled"> 2FA enabled</li>
+                <li><input type="checkbox" data-key="password_manager"> Password manager</li>
+                <li><input type="checkbox" data-key="screen_limits"> Screen limits</li>
+                <li><input type="checkbox" data-key="devices_common"> Devices in common areas</li>
+            </ul>
+        </div>
+
+        <div class="pg-card">
+            <h2>💡 Tip</h2>
+            <div class="pg-tip" id="pgTip">Review your child's friend list every month.</div>
+        </div>
+
+        <div class="pg-card">
+            <h2>🚀 Quick Actions</h2>
+            <div class="pg-actions">
+                <a href="{{ url_for('main.report') }}" class="pg-btn primary">🚨 Report a Concern</a>
+                <a href="{{ url_for('main.safety_plan') }}" class="pg-btn secondary">📝 Family Safety Plan</a>
+                <a href="{{ url_for('main.dashboard') }}" class="pg-btn outline">📊 Full Dashboard</a>
+                <a href="{{ url_for('main.lessons') }}" class="pg-btn outline">📚 Browse Lessons</a>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="pg-card" style="text-align:center;padding:2rem;">
+        <p style="margin-bottom:1rem;font-size:1.1rem;">Sign in to see your parent dashboard</p>
+        <a href="{{ url_for('main.login') }}" class="pg-btn primary">🔑 Sign In</a>
+        <div style="margin-top:0.8rem;"><a href="{{ url_for('main.demo_login') }}" class="pg-btn outline">Try Demo</a></div>
+    </div>
+    {% endif %}
+
+    <div class="pg-footer">
+        SafeNet — <a href="https://report.cybertrip.org" target="_blank">report.cybertrip.org</a>
+    </div>
+</div>
+
+{% if session.user_id %}
+<script>
+function loadParentData() {
+    fetch("/api/dashboard/stats").then(function(r){return r.json()}).then(function(s){
+        if (s.reports !== undefined) {
+            document.getElementById("pgReports").textContent = s.reports;
+            document.getElementById("pgQuizzes").textContent = s.quiz_completed || s.quiz_completed === 0 ? s.quiz_completed : "0";
+        }
+    });
+    fetch("/api/dashboard/settings").then(function(r){return r.json()}).then(function(settings){
+        var items = document.querySelectorAll("#pgChecklist input");
+        var checked = 0;
+        items.forEach(function(cb){
+            var key = cb.dataset.key;
+            if (settings[key] === "true") { cb.checked = true; checked++; }
+        });
+        var pct = Math.round((checked / items.length) * 100);
+        document.getElementById("pgScoreNum").textContent = pct + "%";
+        document.getElementById("pgScoreBar").style.width = pct + "%";
+        var label = document.getElementById("pgScoreLabel");
+        if (pct === 0) label.textContent = "Getting started";
+        else if (pct < 30) label.textContent = "Good start!";
+        else if (pct < 60) label.textContent = "Making progress!";
+        else if (pct < 90) label.textContent = "Almost there!";
+        else label.textContent = "🏆 Well protected!";
+    });
+}
+
+var tips = [
+    "Review friend lists and followers each month.",
+    "Check app permissions on your child's device.",
+    "Have a regular family check-in about online safety.",
+    "Practice a 'what would you do?' scenario together.",
+    "Talk about digital footprint — nothing truly disappears.",
+    "Set a rule: no devices in bedrooms after a certain time.",
+];
+document.getElementById("pgTip").textContent = tips[Math.floor(Math.random() * tips.length)];
+
+loadParentData();
+setInterval(loadParentData, 10000);
+</script>
+{% endif %}
+{% endblock %}

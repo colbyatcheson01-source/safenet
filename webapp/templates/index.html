@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<div class="hero">
+    <h1>Keep Your Family Safe Online</h1>
+    <p class="hero-sub">Simple tools to protect your kids — lessons, practice scenarios, and a place to report concerns.</p>
+    <div class="hero-actions">
+        <a href="{{ url_for('main.lessons') }}" class="btn btn-primary btn-lg">📚 Start Learning</a>
+        <a href="{{ url_for('main.scenarios') }}" class="btn btn-secondary btn-lg">🎮 Try a Scenario</a>
+        <a href="{{ url_for('main.report') }}" class="btn btn-outline btn-lg">🚨 Report</a>
+    </div>
+</div>
+
+<div class="quick-stats">
+    <span>📖 <strong>10</strong> lessons</span>
+    <span>🎮 <strong>4</strong> practice scenarios</span>
+    <span>✅ <strong>30+</strong> quiz questions</span>
+</div>
+
+<div class="feature-grid">
+    <div class="feature-card">
+        <div class="feat-icon">📖</div>
+        <h3>Learn the Basics</h3>
+        <p>Short, practical lessons on grooming, privacy, passwords, social media, and more. Each one comes with a quiz.</p>
+        <a href="{{ url_for('main.lessons') }}" class="btn btn-outline btn-sm">Browse lessons →</a>
+    </div>
+    <div class="feature-card">
+        <div class="feat-icon">🎮</div>
+        <h3>Practice Real Scenarios</h3>
+        <p>See how you'd handle situations like a stranger DMing your child or pressure to send photos. Your choices matter.</p>
+        <a href="{{ url_for('main.scenarios') }}" class="btn btn-outline btn-sm">Try it out →</a>
+    </div>
+    <div class="feature-card">
+        <div class="feat-icon">📊</div>
+        <h3>Track Your Progress</h3>
+        <p>Use the dashboard to check your family's safety score, track what you've done, and get weekly tips.</p>
+        <a href="{{ url_for('main.dashboard') }}" class="btn btn-outline btn-sm">Open dashboard →</a>
+    </div>
+    <div class="feature-card">
+        <div class="feat-icon">🚨</div>
+        <h3>Report a Concern</h3>
+        <p>Found something suspicious? Submit a report and get guided to the right authorities like NCMEC.</p>
+        <a href="{{ url_for('main.report') }}" class="btn btn-outline btn-sm">Make a report →</a>
+    </div>
+    <div class="feature-card">
+        <div class="feat-icon">📝</div>
+        <h3>Create a Safety Plan</h3>
+        <p>Build a simple family plan with rules, emergency contacts, and step-by-step actions for tough situations.</p>
+        <a href="{{ url_for('main.safety_plan') }}" class="btn btn-outline btn-sm">Build your plan →</a>
+    </div>
+    <div class="feature-card">
+        <div class="feat-icon">📞</div>
+        <h3>Get Help Now</h3>
+        <p>If you need help right away — hotlines, crisis support, and reporting sites all in one place.</p>
+        <a href="{{ url_for('main.contact') }}" class="btn btn-outline btn-sm">View resources →</a>
+    </div>
+</div>
+
+<div class="sale-section" style="text-align:center;padding:2rem;background:var(--bg-card);border-radius:var(--radius);box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+    <h2 style="font-size:1.5rem;margin-bottom:0.5rem;">🛡️ Get SafeNet Free</h2>
+    <p style="color:var(--text-muted);margin-bottom:1.2rem;max-width:550px;margin-left:auto;margin-right:auto;">Download the complete SafeNet app — lessons, scenarios, reporting, safety plans, parent dashboard, and more. Runs on Windows. No tech skills needed. Pay what you can.</p>
+    <a href="{{ url_for('main.sale_page') }}" class="btn btn-primary btn-lg">⬇ Download SafeNet Free</a>
+</div>
+{% endblock %}

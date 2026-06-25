@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Lessons{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>Online Safety Lessons</h1>
+    <p class="subtitle">10 lessons covering everything from grooming recognition to family communication. Each includes a quiz.</p>
+</div>
+<div class="lesson-list">
+    {% for lesson in lessons %}
+    <a href="{{ url_for('main.lesson', lesson_id=lesson.id) }}" class="lesson-card">
+        <span class="lesson-number">Lesson {{ lesson.id }}</span>
+        <h3>{{ lesson.title }}</h3>
+        <p>{{ lesson.summary }}</p>
+        <span class="lesson-meta">{{ lesson.sections|length }} sections · {{ lesson.quiz|length }} questions</span>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}
