@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 380px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 14px; color: #1a1a2e; background: #f8f9fc;
+    }
+    .header {
+      background: linear-gradient(135deg, #e94560 0%, #0f3460 100%);
+      color: #fff; padding: 14px 16px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .header h1 { font-size: 16px; font-weight: 700; }
+    .header .badge { font-size: 10px; background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 10px; }
+    .content { padding: 12px 16px; }
+    .form-group { margin-bottom: 10px; }
+    .form-group label { display: block; font-size: 12px; font-weight: 600; color: #555; margin-bottom: 3px; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; padding: 8px 10px; border: 1px solid #d0d5dd; border-radius: 6px;
+      font-size: 13px; background: #fff;
+    }
+    .form-group textarea { resize: vertical; min-height: 60px; }
+    .form-row { display: flex; gap: 8px; }
+    .form-row .form-group { flex: 1; }
+    .btn {
+      width: 100%; padding: 10px; border: none; border-radius: 6px;
+      font-size: 14px; font-weight: 600; cursor: pointer;
+      background: #e94560; color: #fff; transition: background 0.2s;
+    }
+    .btn:hover { background: #d63850; }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .btn-secondary { background: #eef2f6; color: #1a1a2e; margin-top: 6px; }
+    .btn-secondary:hover { background: #e2e8f0; }
+    .status { margin-top: 8px; padding: 8px 12px; border-radius: 6px; font-size: 13px; display: none; }
+    .status.success { display: block; background: #d1fae5; color: #065f46; }
+    .status.error { display: block; background: #fee2e2; color: #991b1b; }
+    .footer { padding: 8px 16px; border-top: 1px solid #e2e8f0; text-align: center; }
+    .footer a { color: #e94560; font-size: 12px; text-decoration: none; }
+    .quick-actions { display: flex; gap: 4px; margin-bottom: 10px; flex-wrap: wrap; }
+    .quick-btn {
+      padding: 4px 10px; font-size: 11px; border: 1px solid #d0d5dd;
+      border-radius: 14px; background: #fff; cursor: pointer; color: #555;
+    }
+    .quick-btn:hover { background: #e94560; color: #fff; border-color: #e94560; }
+    .url-display {
+      font-size: 12px; color: #666; word-break: break-all;
+      padding: 6px 8px; background: #f1f3f5; border-radius: 4px; margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <span style="font-size:20px;">🛡️</span>
+    <h1>SafeNet Reporter</h1>
+    <span class="badge">v1.0</span>
+  </div>
+  <div class="content">
+    <div id="urlDisplay" class="url-display"></div>
+    <div class="quick-actions">
+      <button class="quick-btn" data-category="cyberbullying">💬 Cyberbullying</button>
+      <button class="quick-btn" data-category="grooming">⚠️ Grooming</button>
+      <button class="quick-btn" data-category="harassment">🚫 Harassment</button>
+      <button class="quick-btn" data-category="explicit">🔞 Explicit</button>
+      <button class="quick-btn" data-category="scam">🎣 Scam</button>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Platform</label>
+        <select id="platform">
+          <option value="facebook">Facebook</option>
+          <option value="twitter">Twitter / X</option>
+          <option value="instagram">Instagram</option>
+          <option value="tiktok">TikTok</option>
+          <option value="snapchat">Snapchat</option>
+          <option value="youtube">YouTube</option>
+          <option value="reddit">Reddit</option>
+          <option value="discord">Discord</option>
+          <option value="telegram">Telegram</option>
+          <option value="whatsapp">WhatsApp</option>
+          <option value="linkedin">LinkedIn</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Severity</label>
+        <select id="severity">
+          <option value="low">Low</option>
+          <option value="medium" selected>Medium</option>
+          <option value="high">High</option>
+          <option value="critical">Critical</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      <textarea id="description" placeholder="Describe what you found..."></textarea>
+    </div>
+    <div class="form-group">
+      <label>Your email (optional, for follow-up)</label>
+      <input type="email" id="email" placeholder="you@example.com">
+    </div>
+    <button class="btn" id="submitBtn">Submit Report</button>
+    <button class="btn btn-secondary" id="optionsBtn">Settings</button>
+    <div id="status" class="status"></div>
+  </div>
+  <div class="footer">
+    <a href="#" id="dashboardLink">Open SafeNet Dashboard →</a>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

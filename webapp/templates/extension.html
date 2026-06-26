@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Chrome Extension{% endblock %}
+{% block content %}
+<div class="hero">
+    <h1>🛡️ SafeNet Chrome Extension</h1>
+    <p class="hero-sub">Report harmful content directly from your browser. Right-click any profile, post, or page to flag it in seconds.</p>
+    <div class="hero-actions">
+        <a href="{{ url_for('main.download_extension') }}" class="btn btn-primary btn-lg">⬇ Download Extension</a>
+    </div>
+</div>
+
+<div class="feature-grid">
+    <div class="feature-card">
+        <div class="feat-icon">🖱️</div>
+        <h3>Right-Click to Report</h3>
+        <p>Right-click any link or page and select "Report this profile to SafeNet" — the popup opens pre-filled with the URL and platform.</p>
+    </div>
+    <div class="feature-card">
+        <div class="feat-icon">🏷️</div>
+        <h3>Quick Category Tags</h3>
+        <p>One-click buttons for common report types: cyberbullying, grooming, harassment, explicit content, and scams.</p>
+    </div>
+    <div class="feature-card">
+        <div class="feat-icon">🔗</div>
+        <h3>Auto Platform Detection</h3>
+        <p>Detects the platform (Facebook, Instagram, TikTok, Twitter, Discord, etc.) from the URL automatically.</p>
+    </div>
+    <div class="feature-card">
+        <div class="feat-icon">⚙️</div>
+        <h3>Custom Server Support</h3>
+        <p>Point the extension at your local SafeNet instance or your deployed Railway URL. API key auth supported.</p>
+    </div>
+</div>
+
+<div class="sale-section" style="text-align:center;padding:2rem;background:var(--bg-card);border-radius:var(--radius);box-shadow:0 2px 12px rgba(0,0,0,0.06);margin-top:2rem;">
+    <h2 style="font-size:1.3rem;margin-bottom:0.8rem;">How to Install</h2>
+    <ol style="text-align:left;max-width:500px;margin:0 auto;line-height:2;color:var(--text-muted);">
+        <li>Download the extension ZIP above</li>
+        <li>Unzip the folder to a permanent location</li>
+        <li>Open Chrome and go to <code>chrome://extensions</code></li>
+        <li>Enable <strong>Developer mode</strong> (toggle top-right)</li>
+        <li>Click <strong>Load unpacked</strong> and select the folder</li>
+        <li>Set your SafeNet server URL in extension settings</li>
+    </ol>
+    <a href="{{ url_for('main.download_extension') }}" class="btn btn-primary btn-lg" style="margin-top:1.5rem;">⬇ Download SafeNet Extension</a>
+</div>
+{% endblock %}

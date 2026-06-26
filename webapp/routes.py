@@ -481,6 +481,31 @@ def osint_submit():
     return jsonify({"status": "submitted", "count": len(data.get("accounts", []))})
 
 
+# ─── Chrome Extension Download ─────────────────────────
+
+EXTENSION_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "extension")
+
+@main_bp.route("/extension")
+def extension_page():
+    return render_template("extension.html")
+
+@main_bp.route("/api/extension/download")
+def download_extension():
+    import zipfile, io
+    ext_dir = os.path.join(BASE, "..", "extension")
+    if not os.path.exists(ext_dir):
+        return jsonify({"error": "Extension not found"}), 404
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:
+        for root, dirs, files in os.walk(ext_dir):
+            for f in files:
+                fp = os.path.join(root, f)
+                arcname = os.path.relpath(fp, ext_dir)
+                z.write(fp, arcname)
+    buf.seek(0)
+    return send_file(buf, mimetype="application/zip", as_attachment=True, download_name="safenet-extension.zip")
+
+
 # ─── Contact / Resources ─────────────────────────────────
 
 @main_bp.route("/contact")
